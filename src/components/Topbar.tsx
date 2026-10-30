@@ -1,15 +1,16 @@
+import type { ComponentType, SVGProps } from 'react'
 import { Link, matchPath, useLocation } from 'react-router'
 import { account } from '../data/account'
 import { usePipeline } from '../state/AppContext'
 import Avatar from './Avatar'
-import { BackIcon } from './Icons'
+import { BackIcon, ChatIcon, ChevronDownIcon, ChevronRightIcon, DashboardIcon, PipelineIcon } from './Icons'
 import ThemeToggle from './ThemeToggle'
 import './Topbar.css'
 
-const SECTION: Record<string, string> = {
-  '/chat': 'Chat',
-  '/dashboard': 'Dashboard',
-  '/pipelines': 'Pipelines',
+const SECTIONS: Record<string, { label: string; Icon: ComponentType<SVGProps<SVGSVGElement>> }> = {
+  '/chat': { label: 'Chat', Icon: ChatIcon },
+  '/dashboard': { label: 'Dashboard', Icon: DashboardIcon },
+  '/pipelines': { label: 'Pipelines', Icon: PipelineIcon },
 }
 
 // The bar across the top of every screen: where you are (left) and
@@ -21,35 +22,40 @@ export default function Topbar() {
   // URL itself instead of useParams.
   const detail = matchPath('/pipelines/:pipelineId', pathname)
   const pipeline = usePipeline(detail?.params.pipelineId)
+  const section = SECTIONS[detail ? '/pipelines' : pathname]
 
   return (
     <header className="topbar">
       <div className="topbar__inner">
         <nav className="topbar__crumbs" aria-label="Breadcrumb">
+          {/* Section icon in a tinted square: a touch of brand color. */}
+          {section && (
+            <span className="topbar__icon" aria-hidden="true">
+              <section.Icon />
+            </span>
+          )}
           {detail ? (
             <>
-              {/* On a pipeline: "Pipelines / Sales vs target". The first part is
+              {/* On a pipeline: "Pipelines › Sales vs target". The first part is
                   the way back; on phones it becomes a "‹ Pipelines" button. */}
               <Link to="/pipelines" className="topbar__back">
-                <BackIcon aria-hidden="true" />
+                <BackIcon className="topbar__back-arrow" aria-hidden="true" />
                 Pipelines
               </Link>
-              <span className="topbar__sep" aria-hidden="true">
-                /
-              </span>
+              <ChevronRightIcon className="topbar__sep" aria-hidden="true" />
               <span className="topbar__current" aria-current="page">
                 {pipeline?.name ?? 'Not found'}
               </span>
             </>
           ) : (
             <span className="topbar__title" aria-current="page">
-              {SECTION[pathname] ?? 'Astera Studio'}
+              {section?.label ?? 'Astera Studio'}
             </span>
           )}
         </nav>
 
         <div className="topbar__actions">
-          <ThemeToggle className="btn btn--ghost btn--icon topbar__icon-btn" />
+          <ThemeToggle className="btn btn--icon topbar__theme" />
           <AccountMenu />
         </div>
       </div>
@@ -63,8 +69,14 @@ export default function Topbar() {
 function AccountMenu() {
   return (
     <>
-      <button className="topbar__avatar-btn" popoverTarget="account-menu" aria-label={`Account: ${account.name}`}>
+      <button className="topbar__account" popoverTarget="account-menu" aria-label={`Account: ${account.name}`}>
         <Avatar size={32} />
+        {/* Name + role beside the avatar on desktop only. */}
+        <span className="topbar__who" aria-hidden="true">
+          <span className="topbar__who-name">{account.name}</span>
+          <span className="topbar__who-role">{account.role}</span>
+        </span>
+        <ChevronDownIcon className="topbar__chev" aria-hidden="true" />
       </button>
 
       <div id="account-menu" popover="auto" className="account-menu">

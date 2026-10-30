@@ -1,4 +1,5 @@
 import { Link } from 'react-router'
+import { CodeIcon, GlobeIcon, LinkedInIcon } from './Icons'
 import './Footer.css'
 
 const links = [
@@ -8,8 +9,12 @@ const links = [
   { to: '/pipelines/sales', label: 'Sales vs target pipeline' },
 ]
 
-// Three tidy columns: what this is · where to go · who built it.
-// Stacks on phones, sits side by side on bigger screens.
+const LINKEDIN = 'https://www.linkedin.com/in/zain-baig-04790b260/'
+const GITHUB = 'https://github.com/ZainnB/Astera_Flow'
+const LIVE = 'https://zainnb.github.io/Astera_Flow/'
+
+// Three tidy columns: what this is · where to go · who built it, then a
+// bottom bar. Stacks on phones, sits side by side on bigger screens.
 export default function Footer() {
   return (
     <footer className="footer">
@@ -25,7 +30,6 @@ export default function Footer() {
             Chat-first analytics for business users: ask in plain language, pin the answers to a dashboard, and keep an eye on
             the pipelines behind every number, from any device.
           </p>
-          <p className="footer__fine">Design mockup · all data is made up</p>
         </div>
 
         <nav className="footer__col" aria-label="Footer">
@@ -41,20 +45,42 @@ export default function Footer() {
 
         <div className="footer__col">
           <h2 className="footer__heading">Developer</h2>
-          <ul className="footer__list">
-            <li className="footer__plain">Zain Baig</li>
-            <li className="footer__plain">FAST · Batch 2026</li>
+          <p className="footer__dev-name">Zain Baig</p>
+          <p className="footer__dev-meta">FAST · Batch 2026</p>
+          <ul className="footer__list footer__list--icons">
             <li>
-              <a href="https://github.com/ZainnB/Astera_Flow" target="_blank" rel="noreferrer">
+              <a href={LINKEDIN} target="_blank" rel="noreferrer">
+                <LinkedInIcon aria-hidden="true" />
+                LinkedIn
+              </a>
+            </li>
+            <li>
+              <a href={GITHUB} target="_blank" rel="noreferrer">
+                <CodeIcon aria-hidden="true" />
                 Source on GitHub
               </a>
             </li>
             <li>
-              <a href="https://zainnb.github.io/Astera_Flow/" target="_blank" rel="noreferrer">
+              <a href={LIVE} target="_blank" rel="noreferrer">
+                <GlobeIcon aria-hidden="true" />
                 Live demo
               </a>
             </li>
           </ul>
+        </div>
+      </div>
+
+      <div className="footer__bar">
+        <div className="footer__bar-inner">
+          <p>© 2026 Zain Baig · Design mockup, all data is made up</p>
+          <div className="footer__social">
+            <a href={LINKEDIN} target="_blank" rel="noreferrer" aria-label="Zain Baig on LinkedIn">
+              <LinkedInIcon aria-hidden="true" />
+            </a>
+            <a href={GITHUB} target="_blank" rel="noreferrer" aria-label="Source code on GitHub">
+              <CodeIcon aria-hidden="true" />
+            </a>
+          </div>
         </div>
       </div>
     </footer>

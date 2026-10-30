@@ -11,6 +11,16 @@
   padding-top: env(safe-area-inset-top);
 }
 
+/* A thin line of brand color across the bottom edge, fading out at both ends. */
+.topbar::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 -1px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent) 45%, transparent) 30%, transparent 75%);
+  pointer-events: none;
+}
+
 .topbar__inner {
   display: flex;
   align-items: center;
@@ -25,13 +35,33 @@
   align-items: center;
   gap: var(--s-2);
   min-width: 0;
-  font-size: var(--fs-sm);
+}
+
+/* Section icon: brand color on its palest tint. Hidden on phones (tight). */
+.topbar__icon {
+  display: none;
+  place-items: center;
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent-line);
+}
+
+.topbar__icon svg {
+  width: 16px;
+  height: 16px;
 }
 
 .topbar__title,
 .topbar__current {
   overflow: hidden;
-  font-weight: 600;
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 650;
+  letter-spacing: var(--tracking-tight);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -45,11 +75,12 @@
   padding: 0 var(--s-2);
   border-radius: var(--r-md);
   color: var(--text-2);
+  font-size: var(--fs-sm);
   font-weight: 500;
   text-decoration: none;
 }
 
-.topbar__back svg {
+.topbar__back-arrow {
   width: 18px;
   height: 18px;
 }
@@ -59,6 +90,9 @@
 }
 
 .topbar__sep {
+  flex: none;
+  width: 14px;
+  height: 14px;
   color: var(--text-3);
 }
 
@@ -72,27 +106,60 @@
 .topbar__actions {
   display: flex;
   align-items: center;
-  gap: var(--s-1);
+  gap: var(--s-2);
 }
 
-.topbar__icon-btn {
+/* Round, outlined icon button, matching the avatar's circle. */
+.topbar__theme {
+  border-radius: 50%;
   color: var(--text-2);
 }
 
-/* The avatar is 32px, but the button around it is a full 44px tap target. */
-.topbar__avatar-btn {
-  display: grid;
-  place-items: center;
-  width: var(--tap);
-  height: var(--tap);
-  padding: 0;
-  border: none;
-  border-radius: 50%;
+/* Account button: avatar on phones; avatar + name + role on desktop.
+   Always at least 44px tall, so it's an easy tap target. */
+.topbar__account {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  min-width: var(--tap);
+  min-height: var(--tap);
+  padding: 0 6px;
+  border: 1px solid transparent;
+  border-radius: 999px;
   background: none;
+  text-align: left;
+  transition: background 0.15s, border-color 0.15s;
 }
 
-.topbar__avatar-btn:active {
-  transform: scale(0.95);
+.topbar__account:active {
+  background: var(--surface-2);
+}
+
+.topbar__who,
+.topbar__chev {
+  display: none;
+}
+
+.topbar__who {
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.topbar__who-name {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.topbar__who-role {
+  color: var(--text-3);
+  font-size: 12px;
+}
+
+.topbar__chev {
+  width: 16px;
+  height: 16px;
+  color: var(--text-3);
 }
 
 @media (min-width: 700px) {
@@ -100,8 +167,16 @@
     padding: 0 var(--s-4) 0 var(--s-5);
   }
 
-  .topbar__back svg {
+  .topbar__icon {
+    display: grid;
+  }
+
+  .topbar__back-arrow {
     display: none; /* tablet+: a normal breadcrumb, no back arrow */
+  }
+
+  .topbar__back {
+    margin-left: 0;
   }
 
   .topbar__sep,
@@ -116,11 +191,36 @@
     height: 64px;
     padding: 0 var(--s-6) 0 var(--s-7);
   }
+
+  .topbar__title,
+  .topbar__current {
+    font-size: 16px;
+  }
+
+  .topbar__account {
+    padding: 4px 12px 4px 4px;
+    border-color: var(--border);
+    background: var(--surface);
+    box-shadow: var(--shadow);
+  }
+
+  .topbar__who {
+    display: flex;
+  }
+
+  .topbar__chev {
+    display: block;
+  }
 }
 
 @media (hover: hover) {
   .topbar__back:hover {
     color: var(--text);
+    background: var(--surface-2);
+  }
+
+  .topbar__account:hover {
+    border-color: var(--border-strong);
   }
 }
 
@@ -218,7 +318,7 @@
 
 @media (min-width: 1200px) {
   .account-menu {
-    top: 68px;
+    top: 70px;
     right: var(--s-5);
   }
 }

@@ -1,16 +1,31 @@
+/*
+ * A deep band of the brand color, in both themes: it closes the page and
+ * frames the content above. Its own small palette is derived from --accent,
+ * so it stays "shades of one color" and follows any brand change.
+ */
 .footer {
-  margin-top: var(--s-6);
-  border-top: 1px solid var(--border);
-  /* A very faint wash of the brand hue, rising from the bottom edge. */
-  background: linear-gradient(to top, color-mix(in srgb, var(--accent) 5%, var(--bg)), var(--bg));
+  --f-bg: color-mix(in srgb, var(--accent) 26%, #0a0d1d);
+  --f-bg-deep: #0a0d1d;
+  --f-text: #eef0f8;
+  --f-muted: rgb(238 240 248 / 64%);
+  --f-faint: rgb(238 240 248 / 42%);
+  --f-heading: color-mix(in srgb, var(--accent) 45%, #ffffff);
+  --f-line: rgb(255 255 255 / 9%);
+
+  margin-top: var(--s-7);
+  color: var(--f-text);
+  /* Lighter at the top-left, deepening toward the bottom, plus a soft glow. */
+  background:
+    radial-gradient(600px 260px at 10% 0%, color-mix(in srgb, var(--accent) 35%, transparent), transparent 70%),
+    linear-gradient(170deg, var(--f-bg), var(--f-bg-deep));
 }
 
 /* Phone: brand on top, then the two link columns side by side. */
 .footer__inner {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--s-5) var(--s-4);
-  padding: var(--s-6) var(--s-4) var(--s-5);
+  gap: var(--s-6) var(--s-4);
+  padding: var(--s-7) var(--s-4) var(--s-6);
 }
 
 .footer__brand {
@@ -20,7 +35,8 @@
 .footer__name {
   display: flex;
   align-items: center;
-  gap: var(--s-2);
+  gap: var(--s-3);
+  font-size: 20px;
   font-weight: 650;
   letter-spacing: var(--tracking-tight);
 }
@@ -28,35 +44,41 @@
 .footer__logo {
   display: grid;
   place-items: center;
-  width: 24px;
-  height: 24px;
-  border-radius: 7px;
-  background: linear-gradient(145deg, var(--accent), color-mix(in srgb, var(--accent) 65%, #000));
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: linear-gradient(145deg, color-mix(in srgb, var(--accent) 80%, #fff), var(--accent));
   color: #fff;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 25%), 0 6px 18px rgb(0 0 0 / 30%);
 }
 
 .footer__desc {
-  max-width: 46ch;
-  margin-top: var(--s-2);
-  color: var(--text-2);
-  font-size: var(--fs-sm);
-}
-
-.footer__fine {
+  max-width: 44ch;
   margin-top: var(--s-3);
-  color: var(--text-3);
-  font-size: var(--fs-xs);
+  color: var(--f-muted);
+  font-size: var(--fs-sm);
+  line-height: 1.65;
 }
 
 .footer__heading {
-  margin-bottom: var(--s-2);
-  color: var(--text-3);
+  margin-bottom: var(--s-3);
+  color: var(--f-heading);
   font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
+  font-weight: 650;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
+}
+
+.footer__dev-name {
+  font-weight: 600;
+}
+
+.footer__dev-meta {
+  margin-bottom: var(--s-2);
+  color: var(--f-faint);
+  font-size: var(--fs-sm);
 }
 
 .footer__list {
@@ -66,33 +88,90 @@
   font-size: var(--fs-sm);
 }
 
-/* Links get a full 44px row on touch screens. */
-.footer__list a,
-.footer__plain {
-  display: flex;
+.footer__list a {
+  display: inline-flex;
   align-items: center;
+  gap: var(--s-2);
   min-height: 36px;
-  color: var(--text-2);
+  color: var(--f-muted);
   text-decoration: none;
+  transition: color 0.15s;
 }
 
-.footer__plain {
-  color: var(--text);
+.footer__list a svg {
+  width: 16px;
+  height: 16px;
+  flex: none;
 }
 
 .footer__list a:active {
-  color: var(--accent);
+  color: var(--f-text);
 }
 
+/* Bottom bar: copyright left, round social buttons right. */
+.footer__bar {
+  border-top: 1px solid var(--f-line);
+}
+
+.footer__bar-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+  padding: var(--s-4);
+  color: var(--f-faint);
+  font-size: var(--fs-xs);
+}
+
+.footer__social {
+  display: flex;
+  gap: var(--s-2);
+}
+
+.footer__social a {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--f-line);
+  border-radius: 50%;
+  background: rgb(255 255 255 / 4%);
+  color: var(--f-muted);
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
+}
+
+.footer__social svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Keyboard focus must stay visible on the dark band. */
+.footer a:focus-visible {
+  outline-color: var(--f-heading);
+}
+
+/* Touch screens: every link gets a full 44px row / circle. */
 @media (pointer: coarse) {
   .footer__list a {
     min-height: var(--tap);
+  }
+
+  .footer__social a {
+    width: var(--tap);
+    height: var(--tap);
   }
 }
 
 @media (hover: hover) {
   .footer__list a:hover {
-    color: var(--accent);
+    color: var(--f-text);
+  }
+
+  .footer__social a:hover {
+    border-color: rgb(255 255 255 / 22%);
+    background: rgb(255 255 255 / 9%);
+    color: var(--f-text);
   }
 }
 
@@ -101,17 +180,23 @@
   .footer__inner {
     grid-template-columns: 2fr 1fr 1fr;
     gap: var(--s-6);
-    padding: var(--s-6) var(--s-5);
+    padding: var(--s-7) var(--s-5) var(--s-6);
   }
 
   .footer__brand {
     grid-column: auto;
   }
+
+  .footer__bar-inner {
+    padding: var(--s-4) var(--s-5);
+  }
 }
 
 @media (min-width: 1200px) {
-  .footer__inner {
+  .footer__inner,
+  .footer__bar-inner {
     max-width: 1320px;
-    padding: var(--s-7) var(--s-7) var(--s-6);
+    padding-left: var(--s-7);
+    padding-right: var(--s-7);
   }
 }
