@@ -1,23 +1,30 @@
 /*
- * A deep band of the brand color, in both themes: it closes the page and
- * frames the content above. Its own small palette is derived from --accent,
- * so it stays "shades of one color" and follows any brand change.
+ * A quiet close to the page that matches the header: page background with a
+ * faint wash of the brand color toward the bottom, and the same fading
+ * hairline of indigo along its top edge as the header has along its bottom.
+ * Its palette comes from the normal tokens, so it follows light/dark mode.
  */
 .footer {
-  --f-bg: color-mix(in srgb, var(--accent) 26%, #0a0d1d);
-  --f-bg-deep: #0a0d1d;
-  --f-text: #eef0f8;
-  --f-muted: rgb(238 240 248 / 64%);
-  --f-faint: rgb(238 240 248 / 42%);
-  --f-heading: color-mix(in srgb, var(--accent) 45%, #ffffff);
-  --f-line: rgb(255 255 255 / 9%);
+  --f-text: var(--text);
+  --f-muted: var(--text-2);
+  --f-faint: var(--text-3);
+  --f-heading: var(--accent);
+  --f-line: var(--border);
 
+  position: relative;
   margin-top: var(--s-7);
+  border-top: 1px solid var(--border);
   color: var(--f-text);
-  /* Lighter at the top-left, deepening toward the bottom, plus a soft glow. */
-  background:
-    radial-gradient(600px 260px at 10% 0%, color-mix(in srgb, var(--accent) 35%, transparent), transparent 70%),
-    linear-gradient(170deg, var(--f-bg), var(--f-bg-deep));
+  background: linear-gradient(180deg, var(--bg), color-mix(in srgb, var(--accent) 6%, var(--bg)));
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  inset: -1px 0 auto;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent) 45%, transparent) 30%, transparent 75%);
+  pointer-events: none;
 }
 
 /* Phone: brand on top, then the two link columns side by side. */
@@ -47,11 +54,12 @@
   width: 32px;
   height: 32px;
   border-radius: 9px;
-  background: linear-gradient(145deg, color-mix(in srgb, var(--accent) 80%, #fff), var(--accent));
+  /* Same two-shade logo as the sidebar. */
+  background: linear-gradient(145deg, var(--accent), color-mix(in srgb, var(--accent) 65%, #000));
   color: #fff;
   font-size: 14px;
   font-weight: 700;
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 25%), 0 6px 18px rgb(0 0 0 / 30%);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 18%), var(--shadow);
 }
 
 .footer__desc {
@@ -105,7 +113,7 @@
 }
 
 .footer__list a:active {
-  color: var(--f-text);
+  color: var(--accent);
 }
 
 /* Bottom bar: copyright left, round social buttons right. */
@@ -136,7 +144,8 @@
   height: 40px;
   border: 1px solid var(--f-line);
   border-radius: 50%;
-  background: rgb(255 255 255 / 4%);
+  background: var(--surface);
+  box-shadow: var(--shadow);
   color: var(--f-muted);
   transition: color 0.15s, background 0.15s, border-color 0.15s;
 }
@@ -144,11 +153,6 @@
 .footer__social svg {
   width: 18px;
   height: 18px;
-}
-
-/* Keyboard focus must stay visible on the dark band. */
-.footer a:focus-visible {
-  outline-color: var(--f-heading);
 }
 
 /* Touch screens: every link gets a full 44px row / circle. */
@@ -165,13 +169,12 @@
 
 @media (hover: hover) {
   .footer__list a:hover {
-    color: var(--f-text);
+    color: var(--accent);
   }
 
   .footer__social a:hover {
-    border-color: rgb(255 255 255 / 22%);
-    background: rgb(255 255 255 / 9%);
-    color: var(--f-text);
+    border-color: var(--accent-line);
+    color: var(--accent);
   }
 }
 
