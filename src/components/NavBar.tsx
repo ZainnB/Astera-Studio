@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router'
 import type { ComponentType, SVGProps } from 'react'
 import { ChatIcon, DashboardIcon, PipelineIcon } from './Icons'
+import ThemeToggle from './ThemeToggle'
 import './NavBar.css'
 
 interface NavItem {
@@ -36,6 +37,11 @@ export default function NavBar() {
           </li>
         ))}
       </ul>
+      {/* Pinned to the bottom of the rail/sidebar. On phones the tab bar has
+          no room, so AppShell shows its own small toggle in the corner. */}
+      <div className="nav__footer">
+        <ThemeToggle className="nav__link nav__theme" showLabel />
+      </div>
     </nav>
   )
 }

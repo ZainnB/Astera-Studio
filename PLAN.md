@@ -57,7 +57,15 @@ Steps list their `inputs`, so the same data drives both the vertical list and ca
 Drill-down (tap region bar → its months) · chat follow-ups that redraw/sort a chart (refuses a line for
 non-time data) · table view on every chart · selected step kept in URL (`?step=`) · mini step track on list
 
-## v2 (detail after v1)
+## v2 progress
+- [x] Premium one-hue visual system (indigo shades + status colors only)
+- [x] Light/dark toggle (Auto/Light/Dark, no flash on load)
+- [x] Draggable bottom sheet
+- [x] Screen transitions
+- [ ] preview.html with iPhone/iPad/desktop frames
+- [ ] Final NOTE with screenshots
+
+## v2 ideas (original list)
 Drill-down on bars · chat follow-up changes a chart · transitions/skeletons/streaming text ·
 draggable bottom sheet · Running animation · reduced motion · ARIA/keyboard · safe-area insets ·
 `preview.html` with iPhone/iPad/desktop frames side by side · final note with screenshots

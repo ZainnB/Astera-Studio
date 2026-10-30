@@ -11,13 +11,59 @@
   gap: var(--s-3);
 }
 
-.filters__select select {
-  min-height: var(--tap);
-  padding: 0 var(--s-6) 0 var(--s-3);
+.select {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* appearance: none removes the browser's own look, so we can draw a pill. */
+.select select {
+  appearance: none;
+  -webkit-appearance: none;
+  min-height: 36px;
+  padding: 0 36px 0 14px;
   border: 1px solid var(--border);
-  border-radius: var(--r-md);
+  border-radius: 999px;
   background: var(--surface);
-  font-size: var(--fs-md); /* 16px+ stops iOS Safari zooming in on focus */
+  color: var(--text);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  line-height: 1.2;
+  cursor: pointer;
+}
+
+.select__chevron {
+  position: absolute;
+  right: 12px;
+  width: 16px;
+  height: 16px;
+  color: var(--text-3);
+  pointer-events: none; /* taps go through to the select underneath */
+}
+
+.select--active select {
+  background: var(--accent-soft);
+  border-color: var(--accent-line);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.select--active .select__chevron {
+  color: var(--accent);
+}
+
+@media (pointer: coarse) {
+  .select select {
+    min-height: var(--tap);
+  }
+}
+
+@media (hover: hover) {
+  .select:not(.select--active) select:hover {
+    border-color: var(--border-strong);
+    background: var(--surface-2);
+  }
 }
 
 .filters--sheet {

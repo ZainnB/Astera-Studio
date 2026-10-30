@@ -1,4 +1,5 @@
 import { useMediaQuery } from '../hooks/useMediaQuery'
+import { useThemePref } from '../lib/theme'
 
 // Chart.js draws on a <canvas>, and canvas can't read CSS variables. So we
 // read the current values of our tokens with getComputedStyle and hand
@@ -30,8 +31,9 @@ function readColors(): ChartColors {
 }
 
 export function useChartColors(): ChartColors {
-  // Subscribing to the dark-mode query makes the chart re-render (and so
-  // re-read the colors) the moment the OS theme changes.
+  // Subscribing to the OS dark-mode query and to the in-app theme toggle makes
+  // the chart re-render (and so re-read the colors) the moment either changes.
   useMediaQuery('(prefers-color-scheme: dark)')
+  useThemePref()
   return readColors()
 }

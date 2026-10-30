@@ -3,6 +3,7 @@ import { regions } from '../data/sales'
 import type { DateRange, Region } from '../data/types'
 import { useApp } from '../state/AppContext'
 import ChipGroup from './ChipGroup'
+import { ChevronDownIcon } from './Icons'
 import './FilterControls.css'
 
 const rangeOptions = (Object.keys(rangeLabels) as DateRange[]).map((value) => ({ value, label: rangeLabels[value] }))
@@ -40,7 +41,10 @@ export default function FilterControls({ layout }: { layout: 'inline' | 'sheet' 
   return (
     <div className="filters filters--inline">
       <ChipGroup label="Date range" options={rangeOptions} value={range} onChange={setRange} />
-      <label className="filters__select">
+      {/* Styled like a chip when closed; the native picker still opens on tap,
+          which is the most comfortable picker on an iPad. Highlighted once a
+          region is chosen, like a selected chip. */}
+      <label className={`select ${region !== 'All' ? 'select--active' : ''}`}>
         <span className="sr-only">Region</span>
         <select value={region} onChange={(e) => setRegion(e.target.value as Region | 'All')}>
           {regionOptions.map((o) => (
@@ -49,6 +53,7 @@ export default function FilterControls({ layout }: { layout: 'inline' | 'sheet' 
             </option>
           ))}
         </select>
+        <ChevronDownIcon className="select__chevron" aria-hidden="true" />
       </label>
     </div>
   )

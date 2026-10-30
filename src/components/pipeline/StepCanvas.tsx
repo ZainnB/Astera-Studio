@@ -8,10 +8,11 @@ import './StepCanvas.css'
 
 // Node size and spacing in px. The canvas size is computed from these, so
 // short pipelines stay compact and long ones scroll sideways (one finger,
-// native scrolling, never pinch-zoom).
-const W = 140
-const H = 112
-const GAP_X = 32
+// native scrolling, never pinch-zoom). Sized so the 5-column sales pipeline
+// still fits an iPad in landscape: 2×16 + 5×148 + 4×28 = 884px.
+const W = 148
+const H = 128
+const GAP_X = 28
 const GAP_Y = 24
 const PAD = 16
 
@@ -79,7 +80,9 @@ export default function StepCanvas({ pipeline, selectedId, onSelect }: StepCanva
               <StepKindIcon kind={step.kind} />
               {kindLabels[step.kind]}
             </span>
-            <span className="canvas__node-label">{step.label}</span>
+            <span className="canvas__node-label" title={step.label}>
+              {step.label}
+            </span>
             <span className="canvas__node-rows">
               {step.status === 'succeeded' ? `${formatCount(step.rowsOut)} rows` : '\u00a0'}
             </span>

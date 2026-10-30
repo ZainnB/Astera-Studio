@@ -10,6 +10,14 @@
     <!-- Inline SVG favicon: no separate file, so it survives the single-file build. -->
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%233349ad'/%3E%3Cpath d='M9 22l7-12 7 12' stroke='white' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
     <title>Astera Studio</title>
+    <!-- Apply a saved theme before the first paint, so someone who chose dark
+         never sees a white flash while the app loads. Same key as src/lib/theme.ts. -->
+    <script>
+      try {
+        var saved = localStorage.getItem('astera-theme')
+        if (saved === 'light' || saved === 'dark') document.documentElement.dataset.theme = saved
+      } catch (e) {}
+    </script>
   </head>
   <body>
     <div id="root"></div>

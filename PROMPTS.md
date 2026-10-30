@@ -42,6 +42,18 @@ to one indigo hue in shades + faintly tinted neutrals; status colors are the onl
 pair (main + target) validated as a one-hue light→dark ramp with the dataviz palette script.
 Red/amber backgrounds removed from banners (thin status edge + badge instead); frosted iOS tab bar.
 
+## 5. Fixes + v2 features
+**Prompt:** "Step headings hide underneath the numbers, maybe change box sizes. 'All regions' doesn't fit
+its box and the dropdown is out of the general design. Fix these, then v2: light/dark toggle, draggable
+bottom sheet, smooth transitions between screens."
+
+**Outcome:**
+- Canvas boxes 148×128 and `flex: none` on each line (content was ~119px in a 112px box, so flexbox squeezed the name)
+- Region select restyled as a pill like the chips (`appearance: none` + own chevron); native picker kept
+- Theme toggle Auto → Light → Dark, saved in localStorage; inline script in index.html prevents a white flash; colors fade during the switch
+- Bottom sheet: drag the handle/header down; >100px or a quick flick dismisses, otherwise springs back; every close slides down
+- Screens fade up on navigation (`key={pathname}`); enter-only so nothing delays the user
+
 ## Hand fixes / things I changed
 - Light-mode status pill backgrounds darker
 - Repo renamed to Astera_Flow, Pages source set to GitHub Actions

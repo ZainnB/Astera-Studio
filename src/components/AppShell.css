@@ -4,11 +4,40 @@
 }
 
 .shell__main {
+  position: relative; /* anchors the phone theme button */
   padding: var(--s-4);
+  /* Below the iPhone status bar / notch when the page runs edge to edge. */
+  padding-top: calc(var(--s-4) + env(safe-area-inset-top));
   /* Keep the last bit of content from hiding behind the bottom tab bar
      (56px tabs + home-indicator inset + normal spacing). */
   padding-bottom: calc(56px + env(safe-area-inset-bottom) + var(--s-4));
   min-width: 0; /* lets wide children (charts, tables) shrink instead of overflowing */
+}
+
+/* Phone theme button, top-right; titles leave room for it. */
+.shell__theme {
+  position: absolute;
+  top: calc(var(--s-2) + env(safe-area-inset-top));
+  right: var(--s-2);
+  z-index: 1;
+  color: var(--text-2);
+}
+
+.shell__main .page-header {
+  padding-right: var(--tap);
+}
+
+/* Each screen fades up into place. Enter-only on purpose: an exit animation
+   would make the user wait before the next screen appears. */
+.shell__page {
+  animation: page-in 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
 }
 
 /* Tablet: two columns, rail | content. */
@@ -20,6 +49,14 @@
 
   .shell__main {
     padding: var(--s-5);
+  }
+
+  .shell__theme {
+    display: none;
+  }
+
+  .shell__main .page-header {
+    padding-right: 0;
   }
 }
 

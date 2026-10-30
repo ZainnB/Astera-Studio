@@ -164,6 +164,25 @@
   }
 }
 
+/* Theme toggle at the bottom of the rail/sidebar (hidden in the phone tab bar). */
+.nav__footer {
+  display: none;
+}
+
+@media (min-width: 700px) {
+  .nav__footer {
+    display: block;
+    margin-top: auto;
+  }
+}
+
+/* The toggle is a <button> wearing the nav-link look: reset button defaults. */
+.nav__theme {
+  width: 100%;
+  border: none;
+  background: none;
+}
+
 /* Logo: two shades of the brand color, nothing else. */
 .nav__logo {
   display: grid;

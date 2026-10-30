@@ -76,6 +76,12 @@
   transform: scale(0.98);
 }
 
+/* Each line keeps its natural height: the box never squeezes one line
+   under another (that was the bug where names hid under the row count). */
+.canvas__node > * {
+  flex: none;
+}
+
 /* Line 1: tiny icon + step type in small caps. */
 .canvas__node-kind {
   display: flex;
