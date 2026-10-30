@@ -11,8 +11,11 @@
 }
 
 .detail__meta dt {
-  color: var(--text-2);
-  font-size: var(--fs-xs);
+  color: var(--text-3);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .detail__meta dd {
@@ -29,8 +32,7 @@
   gap: var(--s-3);
   margin-bottom: var(--s-4);
   padding: var(--s-3) var(--s-4);
-  border-left: 4px solid var(--fail);
-  background: var(--fail-soft);
+  border-left: 3px solid var(--fail);
   font-size: var(--fs-sm);
 }
 

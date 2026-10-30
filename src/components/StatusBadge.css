@@ -2,17 +2,18 @@
   display: inline-flex;
   align-items: center;
   gap: var(--s-1);
-  padding: 2px 10px 2px 8px;
+  padding: 2px 9px 2px 7px;
   border-radius: 999px; /* pill */
   font-size: var(--fs-xs);
   font-weight: 600;
+  line-height: 18px;
   white-space: nowrap;
 }
 
 .badge__icon {
-  width: 14px;
-  height: 14px;
-  stroke-width: 2.5;
+  width: 13px;
+  height: 13px;
+  stroke-width: 2.75;
 }
 
 /* Tones map to the status tokens in tokens.css. */

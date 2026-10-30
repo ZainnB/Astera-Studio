@@ -64,7 +64,7 @@
 }
 
 .step--failed .step-list__card {
-  border-color: var(--fail);
+  border-color: color-mix(in srgb, var(--fail) 55%, var(--border));
 }
 
 .step--open .step-list__card {

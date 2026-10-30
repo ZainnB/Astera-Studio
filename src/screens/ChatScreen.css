@@ -24,8 +24,9 @@
 }
 
 .chat__empty-title {
-  font-size: var(--fs-lg);
-  font-weight: 600;
+  font-size: 24px;
+  font-weight: 650;
+  letter-spacing: var(--tracking-tight);
 }
 
 .chat__suggestions {
@@ -48,8 +49,9 @@
   max-width: 85%;
   padding: var(--s-2) var(--s-4);
   border-radius: var(--r-lg) var(--r-lg) var(--r-sm) var(--r-lg);
-  background: var(--accent);
-  color: var(--accent-fg);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text);
 }
 
 /* Studio's answer: full width, summary first, then the chart. */
@@ -119,11 +121,12 @@
 .chat__input {
   flex: 1;
   min-width: 0;
-  min-height: var(--tap);
+  min-height: 48px;
   padding: 0 var(--s-4);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-strong);
   border-radius: 999px;
   background: var(--surface);
+  box-shadow: var(--shadow-lg);
   font-size: var(--fs-md); /* 16px+ stops iOS Safari zooming in on focus */
 }
 
@@ -132,6 +135,8 @@
 }
 
 .chat__composer .btn--icon {
+  width: 48px;
+  min-height: 48px;
   border-radius: 50%;
 }
 
@@ -148,6 +153,6 @@
 
 @media (min-width: 1200px) {
   .chat {
-    min-height: calc(100dvh - 2 * var(--s-6));
+    min-height: calc(100dvh - var(--s-7) - var(--s-6)); /* matches .shell__main padding */
   }
 }

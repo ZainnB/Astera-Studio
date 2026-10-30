@@ -22,7 +22,7 @@ function readColors(): ChartColors {
     reference: v('--series-ref'),
     negative: v('--series-neg'),
     grid: v('--border'),
-    text: v('--text-2'),
+    text: v('--text-3'),
     // Tooltip is the inverse of the page (dark on light, light on dark).
     tooltipBg: v('--text'),
     tooltipText: v('--surface'),

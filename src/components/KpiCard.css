@@ -4,19 +4,20 @@
 }
 
 .kpi__label {
-  color: var(--text-2);
-  font-size: var(--fs-xs);
+  color: var(--text-3);
+  font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
 }
 
 .kpi__value {
-  margin: var(--s-1) 0;
-  font-size: 22px;
-  font-weight: 700;
+  margin: var(--s-2) 0 var(--s-1);
+  font-size: 24px;
+  font-weight: 650;
   font-variant-numeric: tabular-nums;
-  line-height: 1.2;
+  letter-spacing: var(--tracking-tight);
+  line-height: 1.1;
 }
 
 .kpi__note {
@@ -48,6 +49,6 @@
   }
 
   .kpi__value {
-    font-size: var(--fs-xl);
+    font-size: 30px;
   }
 }

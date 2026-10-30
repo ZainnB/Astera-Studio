@@ -3,6 +3,10 @@
  * Components never hard-code colors, so dark mode is just a different set of
  * values for the same variable names.
  *
+ * Color rule: ONE hue (indigo) in different shades, plus neutrals with a faint
+ * indigo tint so they feel related. The only other hues are the status colors
+ * (green / red / amber), and they appear only where something has a status.
+ *
  * Breakpoints (CSS variables can't be used inside @media, so they're documented
  * here and mirrored in src/hooks/useMediaQuery.ts for JS):
  *   phone    < 700px
@@ -11,37 +15,43 @@
  */
 
 :root {
-  /* Surfaces & text */
-  --bg: #f6f7f9;
+  /* Surfaces & text: near-white and near-black with a hint of the brand hue */
+  --bg: #f7f8fb;
   --surface: #ffffff;
-  --surface-2: #f0f2f5;
-  --border: #e2e5ea;
-  --text: #14171f;
-  --text-2: #5b6372;
+  --surface-2: #f1f3f8;
+  --border: #e5e8f0;
+  --border-strong: #d3d8e5;
+  --text: #121528;
+  --text-2: #5e647a;
+  --text-3: #8b91a6; /* hints, axis labels */
 
-  /* Brand accent: used for primary actions and selection, never for status */
-  --accent: #2f5bea;
+  /* Brand: the single accent hue, in shades.
+     --accent:      primary buttons, active nav, links, selection
+     --accent-soft: selected backgrounds
+     --accent-line: selected borders */
+  --accent: #3349ad;
   --accent-fg: #ffffff;
-  --accent-soft: #dde6ff;
+  --accent-soft: #eef1fb;
+  --accent-line: #c8d2f1;
 
-  /* Pipeline status: each has a strong color (icon/text) and a soft one (pill bg).
-     Running is amber, not blue, so it never gets confused with the accent. */
-  --ok: #15803d;
-  --ok-soft: #d4ecdc;
-  --fail: #c62828;
-  --fail-soft: #fadada;
-  --run: #b45309;
-  --run-soft: #fbe7c6;
-  --sched: #5b6372;
-  --sched-soft: #e2e5ea;
+  /* Status: the only non-brand hues. Strong = icon/text, soft = pill background.
+     Running is amber, not blue, so it never looks like a brand/clickable color. */
+  --ok: #17794a;
+  --ok-soft: #dff1e7;
+  --fail: #c13a33;
+  --fail-soft: #f9e2e0;
+  --run: #a35d0a;
+  --run-soft: #f9ecd6;
+  --sched: #5e647a;
+  --sched-soft: #e9ecf3;
 
-  /* Chart series, taken from a color-blind-validated reference palette.
-     --series-1:   the main series (blue)
-     --series-ref: comparison series such as a target (neutral grey, so it recedes)
-     --series-neg: below-zero values; blue/red is a diverging pair that reads as opposites */
-  --series-1: #2a78d6;
-  --series-ref: #a3a9b3;
-  --series-neg: #e34948;
+  /* Charts: shades of the brand hue (validated as a light→dark ramp).
+     --series-1:   the main series
+     --series-ref: comparison series such as a target (light tint, so it recedes)
+     --series-neg: below-zero values (red = "below target" is a status meaning) */
+  --series-1: #3349ad;
+  --series-ref: #9fb0e6;
+  --series-neg: #d0534c;
 
   /* Spacing: 4px base scale */
   --s-1: 4px;
@@ -52,19 +62,21 @@
   --s-6: 32px;
   --s-7: 48px;
 
-  /* Shape */
+  /* Shape: soft corners, hairline borders, barely-there shadows */
   --r-sm: 6px;
   --r-md: 10px;
-  --r-lg: 16px;
-  --shadow: 0 1px 2px rgb(16 24 40 / 6%), 0 1px 3px rgb(16 24 40 / 10%);
+  --r-lg: 14px;
+  --shadow: 0 1px 2px rgb(18 21 40 / 4%), 0 1px 1px rgb(18 21 40 / 2%);
+  --shadow-lg: 0 12px 32px rgb(18 21 40 / 10%), 0 2px 6px rgb(18 21 40 / 5%);
 
-  /* Type: system font stack, so it's native on every device and nothing to download */
-  --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  /* Type: system font stack (SF Pro on Apple devices), nothing to download */
+  --font: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   --fs-xs: 12px;
   --fs-sm: 14px;
   --fs-md: 16px;
   --fs-lg: 20px;
   --fs-xl: 28px;
+  --tracking-tight: -0.02em; /* headings and big numbers */
 
   /* Minimum touch target (Apple HIG: 44pt) */
   --tap: 44px;
@@ -76,52 +88,60 @@
    or when the user explicitly forces dark via data-theme. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
-    --bg: #0f1115;
-    --surface: #171a21;
-    --surface-2: #1f232c;
-    --border: #2b303b;
-    --text: #e8eaf0;
-    --text-2: #9aa3b2;
-    --accent: #6d8cff;
-    --accent-fg: #0f1115;
-    --accent-soft: #1d2640;
-    --ok: #4ade80;
-    --ok-soft: #14271c;
-    --fail: #f87171;
-    --fail-soft: #2d1717;
-    --run: #fbbf24;
-    --run-soft: #2b2312;
-    --sched: #9aa3b2;
-    --sched-soft: #232832;
-    --series-1: #3987e5;
-    --series-ref: #5b6270;
-    --series-neg: #e66767;
+    --bg: #0b0d14;
+    --surface: #121521;
+    --surface-2: #191d2b;
+    --border: #232839;
+    --border-strong: #2f3549;
+    --text: #e8eaf2;
+    --text-2: #9399ad;
+    --text-3: #6b7187;
+    --accent: #7088e0;
+    --accent-fg: #0b0d14;
+    --accent-soft: #1b2140;
+    --accent-line: #33407a;
+    --ok: #4cc488;
+    --ok-soft: #12271d;
+    --fail: #f07a72;
+    --fail-soft: #2c1719;
+    --run: #f0b54a;
+    --run-soft: #2a2213;
+    --sched: #9399ad;
+    --sched-soft: #1f2433;
+    --series-1: #7088e0;
+    --series-ref: #3f4f8f;
+    --series-neg: #e66a62;
     --shadow: 0 1px 2px rgb(0 0 0 / 40%);
+    --shadow-lg: 0 12px 32px rgb(0 0 0 / 50%);
     color-scheme: dark;
   }
 }
 
 :root[data-theme='dark'] {
-  --bg: #0f1115;
-  --surface: #171a21;
-  --surface-2: #1f232c;
-  --border: #2b303b;
-  --text: #e8eaf0;
-  --text-2: #9aa3b2;
-  --accent: #6d8cff;
-  --accent-fg: #0f1115;
-  --accent-soft: #1d2640;
-  --ok: #4ade80;
-  --ok-soft: #14271c;
-  --fail: #f87171;
-  --fail-soft: #2d1717;
-  --run: #fbbf24;
-  --run-soft: #2b2312;
-  --sched: #9aa3b2;
-  --sched-soft: #232832;
-  --series-1: #3987e5;
-  --series-ref: #5b6270;
-  --series-neg: #e66767;
+  --bg: #0b0d14;
+  --surface: #121521;
+  --surface-2: #191d2b;
+  --border: #232839;
+  --border-strong: #2f3549;
+  --text: #e8eaf2;
+  --text-2: #9399ad;
+  --text-3: #6b7187;
+  --accent: #7088e0;
+  --accent-fg: #0b0d14;
+  --accent-soft: #1b2140;
+  --accent-line: #33407a;
+  --ok: #4cc488;
+  --ok-soft: #12271d;
+  --fail: #f07a72;
+  --fail-soft: #2c1719;
+  --run: #f0b54a;
+  --run-soft: #2a2213;
+  --sched: #9399ad;
+  --sched-soft: #1f2433;
+  --series-1: #7088e0;
+  --series-ref: #3f4f8f;
+  --series-neg: #e66a62;
   --shadow: 0 1px 2px rgb(0 0 0 / 40%);
+  --shadow-lg: 0 12px 32px rgb(0 0 0 / 50%);
   color-scheme: dark;
 }

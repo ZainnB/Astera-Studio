@@ -18,15 +18,10 @@
   display: grid;
   gap: var(--s-2);
   height: 100%;
-  padding: var(--s-4);
-  border-left: 4px solid var(--border);
+  padding: var(--s-4) var(--s-5);
   color: inherit;
   text-decoration: none;
 }
-
-.pipeline-card--failed { border-left-color: var(--fail); }
-.pipeline-card--running { border-left-color: var(--run); }
-.pipeline-card--succeeded { border-left-color: var(--ok); }
 
 .pipeline-card:active {
   background: var(--surface-2);
@@ -56,7 +51,7 @@
 
 .pipeline-card__seg {
   flex: 1;
-  height: 6px;
+  height: 4px;
   border-radius: 999px;
   background: var(--border);
 }

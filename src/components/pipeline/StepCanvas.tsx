@@ -2,6 +2,7 @@ import type { Pipeline } from '../../data/types'
 import { formatCount } from '../../lib/format'
 import StatusBadge from '../StatusBadge'
 import { layoutSteps } from './layout'
+import { kindLabels } from './kindLabels'
 import StepKindIcon from './StepKindIcon'
 import './StepCanvas.css'
 
@@ -9,7 +10,7 @@ import './StepCanvas.css'
 // short pipelines stay compact and long ones scroll sideways (one finger,
 // native scrolling, never pinch-zoom).
 const W = 140
-const H = 84
+const H = 112
 const GAP_X = 32
 const GAP_Y = 24
 const PAD = 16
@@ -72,14 +73,17 @@ export default function StepCanvas({ pipeline, selectedId, onSelect }: StepCanva
             aria-pressed={step.id === selectedId}
             onClick={() => onSelect(step.id)}
           >
-            <span className="canvas__node-top">
+            {/* Stacked lines, each with the full width, so nothing can collide:
+                kind · name · rows produced · status. */}
+            <span className="canvas__node-kind">
               <StepKindIcon kind={step.kind} />
-              <span className="canvas__node-label">{step.label}</span>
+              {kindLabels[step.kind]}
             </span>
-            <span className="canvas__node-bottom">
-              <StatusBadge status={step.status} />
-              {step.status === 'succeeded' && <span className="canvas__rows">{formatCount(step.rowsOut)}</span>}
+            <span className="canvas__node-label">{step.label}</span>
+            <span className="canvas__node-rows">
+              {step.status === 'succeeded' ? `${formatCount(step.rowsOut)} rows` : '\u00a0'}
             </span>
+            <StatusBadge status={step.status} />
           </button>
         ))}
       </div>

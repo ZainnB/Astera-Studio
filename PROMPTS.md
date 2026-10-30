@@ -32,6 +32,16 @@ Decisions AI made during the build that I should be able to defend:
 - "Tap outside" listens to `click`, not `pointerdown`, so starting a scroll never collapses a step
 - Selected step lives in the URL so dashboard links can open the failed step directly
 
+## 4. Canvas bug + premium look (start of v2)
+**Prompt:** "The numbers after the status in the pipeline graph boxes go out of the box if more than two
+digits, fix that. What do those numbers even mean? … Give the full website a premium, elite but
+professional and minimalistic look. Not too many colours, shades of the same colour other than statuses."
+
+**Outcome:** The number was "rows out" with no label → now its own line, "12,480 rows". Whole UI moved
+to one indigo hue in shades + faintly tinted neutrals; status colors are the only other hues. Chart
+pair (main + target) validated as a one-hue light→dark ramp with the dataviz palette script.
+Red/amber backgrounds removed from banners (thin status edge + badge instead); frosted iOS tab bar.
+
 ## Hand fixes / things I changed
 - Light-mode status pill backgrounds darker
 - Repo renamed to Astera_Flow, Pages source set to GitHub Actions
