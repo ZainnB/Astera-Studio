@@ -1,0 +1,173 @@
+.step-detail {
+  display: grid;
+  gap: var(--s-4);
+  font-size: var(--fs-sm);
+}
+
+.step-detail__label {
+  margin-bottom: var(--s-2);
+  color: var(--text-2);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.step-detail__error {
+  display: flex;
+  gap: var(--s-2);
+  padding: var(--s-3);
+  border-radius: var(--r-md);
+  background: var(--fail-soft);
+  color: var(--text);
+}
+
+.step-detail__error > svg {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  color: var(--fail);
+}
+
+.step-detail__cols,
+.step-detail__col {
+  display: grid;
+  gap: var(--s-4);
+  min-width: 0;
+}
+
+.step-detail__stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s-3);
+  margin: 0;
+}
+
+.step-detail__stats div {
+  padding: var(--s-2) var(--s-3);
+  border-radius: var(--r-md);
+  background: var(--surface-2);
+}
+
+.step-detail__stats dt {
+  color: var(--text-2);
+  font-size: var(--fs-xs);
+}
+
+.step-detail__stats dd {
+  margin: 0;
+  font-size: var(--fs-md);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.step-detail__input-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+
+.step-detail__settings {
+  border-radius: var(--r-md);
+  transition: box-shadow 0.2s;
+}
+
+/* Highlight when the user tried to leave with unsaved edits. */
+.step-detail__settings--nudge {
+  box-shadow: 0 0 0 2px var(--run);
+}
+
+.step-detail__settings-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--tap);
+}
+
+.step-detail__settings-head .step-detail__label {
+  margin: 0;
+}
+
+.step-detail__fields {
+  display: grid;
+  margin: 0;
+}
+
+.step-detail__field {
+  display: grid;
+  grid-template-columns: minmax(90px, 35%) 1fr;
+  align-items: center;
+  gap: var(--s-3);
+  min-height: var(--tap);
+  border-bottom: 1px solid var(--border);
+}
+
+.step-detail__field dt {
+  color: var(--text-2);
+}
+
+.step-detail__field dd {
+  margin: 0;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.step-detail__field input,
+.step-detail__field select {
+  width: 100%;
+  min-height: 40px;
+  padding: 0 var(--s-2);
+  border: 1px solid var(--accent);
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  font-size: var(--fs-md); /* 16px+ stops iOS Safari zooming in on focus */
+}
+
+.step-detail__edit-bar,
+.step-detail__saved {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--s-2);
+  padding-top: var(--s-3);
+}
+
+.step-detail__saved p {
+  flex: 1 1 160px;
+  color: var(--ok);
+}
+
+.step-detail__nudge {
+  flex: 1 1 100%;
+  color: var(--run);
+  font-weight: 600;
+}
+
+.step-detail__table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+}
+
+.step-detail__table-wrap .data-table th:first-child,
+.step-detail__table-wrap .data-table td {
+  text-align: left;
+}
+
+/* Kind icon: a tinted square with the step-type icon (shared by list + canvas). */
+.kind-icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--r-sm);
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.kind-icon svg {
+  width: 18px;
+  height: 18px;
+}

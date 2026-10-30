@@ -1,0 +1,144 @@
+.step-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Each item: [rail | card]. The rail holds the dot and the connecting line. */
+.step-list__item {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  gap: var(--s-2);
+  /* When scrolled into view, leave room for the bottom tab bar. */
+  scroll-margin: var(--s-4) 0 calc(56px + env(safe-area-inset-bottom) + var(--s-4));
+}
+
+.step-list__rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.step-list__line {
+  width: 2px;
+  background: var(--border);
+}
+
+.step-list__line--top {
+  height: 26px; /* reaches the dot, which lines up with the card header */
+}
+
+.step-list__line--bottom {
+  flex: 1;
+}
+
+.step-list__line.is-hidden {
+  visibility: hidden;
+}
+
+.step-list__dot {
+  flex: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 3px solid var(--surface);
+  background: var(--sched);
+  box-shadow: 0 0 0 1px var(--border);
+}
+
+/* Dot color repeats the status (the badge in the card carries the words). */
+.step--succeeded .step-list__dot { background: var(--ok); }
+.step--failed .step-list__dot    { background: var(--fail); }
+.step--running .step-list__dot   { background: var(--run); animation: pulse 1.2s ease-in-out infinite; }
+.step--skipped .step-list__dot   { background: var(--border); }
+
+@keyframes pulse {
+  50% {
+    box-shadow: 0 0 0 5px var(--run-soft);
+  }
+}
+
+.step-list__card {
+  margin-bottom: var(--s-3);
+  overflow: hidden;
+}
+
+.step--failed .step-list__card {
+  border-color: var(--fail);
+}
+
+.step--open .step-list__card {
+  border-color: var(--accent);
+}
+
+/* The whole header row is one big button: easy to hit with a thumb. */
+.step-list__header {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  width: 100%;
+  min-height: 60px;
+  padding: var(--s-3);
+  border: none;
+  background: none;
+  text-align: left;
+}
+
+.step-list__header:active {
+  background: var(--surface-2);
+}
+
+.step-list__titles {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+}
+
+.step-list__title {
+  font-weight: 600;
+  font-size: var(--fs-sm);
+  line-height: 1.3;
+}
+
+.step-list__sub {
+  overflow: hidden;
+  color: var(--text-2);
+  font-size: var(--fs-xs);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.step-list__chevron {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  color: var(--text-2);
+  transition: transform 0.2s;
+}
+
+.step--open .step-list__chevron {
+  transform: rotate(180deg);
+}
+
+.step-list__merge {
+  margin: calc(-1 * var(--s-2)) var(--s-3) var(--s-3) calc(32px + 2 * var(--s-3));
+  color: var(--text-2);
+  font-size: var(--fs-xs);
+}
+
+.step-list__detail {
+  padding: 0 var(--s-3) var(--s-4);
+  border-top: 1px solid var(--border);
+  animation: expand 0.2s ease-out;
+}
+
+.step-list__detail-line {
+  padding: var(--s-3) 0;
+}
+
+@keyframes expand {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}

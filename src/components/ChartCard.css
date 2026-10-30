@@ -1,0 +1,157 @@
+.chart-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  padding: var(--s-4);
+  min-width: 0; /* let the canvas shrink inside grid/flex parents */
+}
+
+.chart-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--s-2);
+}
+
+.chart-card__titles {
+  min-width: 0;
+}
+
+.chart-card__title {
+  font-size: var(--fs-md);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.chart-card__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--s-1);
+  margin: calc(-1 * var(--s-2)) calc(-1 * var(--s-2)) 0 0; /* let 44px buttons sit in the corner */
+}
+
+.chart-card__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--fs-xs);
+  color: var(--text-2);
+}
+
+.chart-card__legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+}
+
+.swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  background: var(--series-1);
+}
+
+.swatch--ref {
+  background: var(--series-ref);
+}
+
+/* Line charts get a line-shaped swatch; dashed for the reference series. */
+.swatch--line {
+  height: 0;
+  border-radius: 0;
+  background: none;
+  border-top: 2px solid var(--series-1);
+  width: 16px;
+}
+
+.swatch--line.swatch--ref {
+  border-top: 2px dashed var(--series-ref);
+}
+
+/* The chart fills this box (Chart.js maintainAspectRatio: false). */
+.chart-card__canvas {
+  position: relative;
+  height: 220px;
+}
+
+.chart-card__canvas--hbar {
+  height: 200px;
+}
+
+@media (min-width: 700px) {
+  .chart-card {
+    padding: var(--s-5);
+  }
+
+  .chart-card__canvas {
+    height: 260px;
+  }
+}
+
+/* Footer link to the pipeline that feeds the chart. Full width = easy to tap. */
+.chart-card__source {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-2);
+  min-height: var(--tap);
+  margin: 0 calc(-1 * var(--s-2)) calc(-1 * var(--s-2));
+  padding: 0 var(--s-2);
+  border-top: 1px solid var(--border);
+  border-radius: 0 0 var(--r-md) var(--r-md);
+  color: var(--text-2);
+  font-size: var(--fs-xs);
+  text-decoration: none;
+}
+
+.chart-card__source strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.chart-card__source:active {
+  background: var(--surface-2);
+}
+
+@media (hover: hover) {
+  .chart-card__source:hover strong {
+    color: var(--accent);
+  }
+}
+
+/* Tables scroll sideways on their own instead of widening the page. */
+.chart-card__table-wrap {
+  overflow-x: auto;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-sm);
+  font-variant-numeric: tabular-nums; /* digits line up in columns */
+}
+
+.data-table th,
+.data-table td {
+  padding: var(--s-2) var(--s-3);
+  border-bottom: 1px solid var(--border);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.data-table th:first-child {
+  text-align: left;
+}
+
+.data-table thead th {
+  color: var(--text-2);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+}
+
+.data-table tbody th {
+  font-weight: 500;
+}

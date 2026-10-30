@@ -36,8 +36,8 @@
   - **Not** on scroll-away: collapsing content above the viewport makes the page jump (bad on iOS Safari)
   - Unsaved edits → ignore outside taps, show Save / Discard
   - Join's second input shown inline on the join step ("◀ Targets DB")
-- **iPad:** canvas fits without panning (5–6 steps), docked side panel
-- **Desktop:** node canvas + side panel
+- **iPad + desktop:** auto-laid-out canvas (from `inputs`), details panel **below** it (two columns on desktop).
+  Changed during build: a side panel beside the canvas made the 5-step pipeline scroll at 1440px.
 - **Dropped:** Option B (one step per screen, loses overview) and Option C (pinch-zoom canvas on phone; tiny tap targets). C becomes the note's "tried and dropped" idea
 
 ## Data model (`src/data/types.ts`)
@@ -47,11 +47,15 @@ Steps list their `inputs`, so the same data drives both the vertical list and ca
 - [x] 0. Scaffold: Vite + TS, deps, single-file config, tokens, Pages workflow
 - [x] 1. App shell: routing + 3 nav layouts
 - [x] 2. Types, mock data, context
-- [ ] 3. Dashboard
-- [ ] 4. Chat
-- [ ] 5. Pipeline detail + step expand/panel + light edit
-- [ ] 6. Wire actions
-- [ ] 7. Ship: build, deploy, readme, note, zip
+- [x] 3. Dashboard
+- [x] 4. Chat
+- [x] 5. Pipeline detail + step expand/panel + light edit
+- [x] 6. Wire actions
+- [x] 7. Ship: build, deploy, readme, note, zip
+
+## Built in v1 beyond the original list
+Drill-down (tap region bar → its months) · chat follow-ups that redraw/sort a chart (refuses a line for
+non-time data) · table view on every chart · selected step kept in URL (`?step=`) · mini step track on list
 
 ## v2 (detail after v1)
 Drill-down on bars · chat follow-up changes a chart · transitions/skeletons/streaming text ·
@@ -64,4 +68,5 @@ npm run dev            # local dev server
 npm run build          # dist/ (GitHub Pages)
 npm run build:single   # dist-single/index.html (for the zip; opens by double-click)
 npm run lint
+npm run package       # release/ZainBaig_FAST_2026.zip (index.html + README + NOTE + source)
 ```

@@ -1,0 +1,97 @@
+/* ---------- Phone (base): one column, in priority order ---------- */
+.dash {
+  display: grid;
+  gap: var(--s-4);
+}
+
+/* KPIs as a 2×2 grid: four numbers visible without scrolling. */
+.dash__kpis {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s-3);
+}
+
+.dash__grid {
+  display: grid;
+  gap: var(--s-4);
+}
+
+/* Inline filters don't fit on a phone: show the "Filters" button instead.
+   (Scoped to the header so it beats the display:flex in FilterControls.css.) */
+.page-header__actions .filters--inline {
+  display: none;
+}
+
+.dash__filters-btn {
+  align-self: flex-start;
+}
+
+.dash__filters-count {
+  display: grid;
+  place-items: center;
+  min-width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--accent-fg);
+  font-size: var(--fs-xs);
+}
+
+.dash__section-title {
+  margin: var(--s-2) 0 var(--s-3);
+  font-size: var(--fs-md);
+  font-weight: 600;
+}
+
+.dash__empty {
+  padding: var(--s-4);
+}
+
+/* ---------- Tablet: KPIs in one row, charts in two columns ---------- */
+@media (min-width: 700px) {
+  .page-header__actions .filters--inline {
+    display: flex;
+  }
+
+  .dash__filters-btn {
+    display: none;
+  }
+
+  .dash {
+    gap: var(--s-5);
+  }
+
+  .dash__kpis {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .dash__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s-5);
+  }
+
+  /* The key chart and the trend get the full width. */
+  .dash__region,
+  .dash__trend {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ---------- Desktop: 3-column grid, key chart wide beside category ---------- */
+@media (min-width: 1200px) {
+  .dash__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .dash__region {
+    grid-column: span 2;
+  }
+
+  .dash__category {
+    grid-column: span 1;
+  }
+
+  .dash__trend {
+    grid-column: 1 / -1;
+  }
+}

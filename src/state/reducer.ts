@@ -1,26 +1,22 @@
-import type { ChartSpec, Pipeline, Region, Step } from '../data/types'
+import type { ChartSpec, ChatMessage, Filters, Pipeline, Step } from '../data/types'
 
 // All app-wide state and every way it can change, in one pure function.
 // "Pure" = no timers, no fetching, no randomness: given the same state and
 // action it always returns the same new state. That makes it easy to reason
 // about, and the async parts (like a fake re-run) live in AppProvider instead.
 
-export type DateRange = 'last-quarter' | 'last-6-months' | 'last-12-months'
-
-export interface Filters {
-  range: DateRange
-  region: Region | 'All'
-}
-
 export interface AppState {
   pipelines: Pipeline[]
   /** Charts pinned from chat; shown on the dashboard. */
   pinned: ChartSpec[]
   filters: Filters
+  /** Chat history lives here (not in ChatScreen) so it survives switching tabs. */
+  chat: ChatMessage[]
 }
 
 export type Action =
   | { type: 'setFilters'; filters: Partial<Filters> }
+  | { type: 'chatAdd'; message: ChatMessage }
   | { type: 'pinChart'; chart: ChartSpec }
   | { type: 'unpinChart'; chartId: string }
   | { type: 'updateStepField'; pipelineId: string; stepId: string; key: string; value: string }
@@ -33,6 +29,9 @@ export function reducer(state: AppState, action: Action): AppState {
   switch (action.type) {
     case 'setFilters':
       return { ...state, filters: { ...state.filters, ...action.filters } }
+
+    case 'chatAdd':
+      return { ...state, chat: [...state.chat, action.message] }
 
     case 'pinChart':
       // Ignore double-pins of the same chart.

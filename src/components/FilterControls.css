@@ -1,0 +1,39 @@
+.chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+
+.filters--inline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-3);
+}
+
+.filters__select select {
+  min-height: var(--tap);
+  padding: 0 var(--s-6) 0 var(--s-3);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  font-size: var(--fs-md); /* 16px+ stops iOS Safari zooming in on focus */
+}
+
+.filters--sheet {
+  display: grid;
+  gap: var(--s-5);
+}
+
+.filters--sheet fieldset {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.filters--sheet legend {
+  margin-bottom: var(--s-2);
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+}

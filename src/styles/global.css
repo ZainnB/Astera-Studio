@@ -79,3 +79,128 @@ a {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ---------- Shared building blocks used on every screen ---------- */
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow);
+}
+
+/* Buttons: always at least 44px tall, so they're comfortable to tap. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-2);
+  min-height: var(--tap);
+  padding: 0 var(--s-4);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  color: var(--text);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: transform 0.1s, background 0.15s;
+}
+
+.btn svg {
+  width: 18px;
+  height: 18px;
+  flex: none;
+}
+
+.btn:active:not(:disabled) {
+  transform: scale(0.97); /* press feedback for touch */
+  background: var(--surface-2);
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.btn--primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-fg);
+}
+
+.btn--primary:active:not(:disabled) {
+  background: var(--accent);
+  filter: brightness(0.92);
+}
+
+/* Text-style button: for secondary actions inside cards. */
+.btn--ghost {
+  background: transparent;
+  border-color: transparent;
+  color: var(--accent);
+  padding: 0 var(--s-3);
+}
+
+/* Square icon-only button. Always paired with an aria-label. */
+.btn--icon {
+  width: var(--tap);
+  padding: 0;
+}
+
+/* Chips: small toggle buttons used for filters and chat suggestions. */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-1);
+  min-height: 36px;
+  padding: 0 var(--s-3);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+}
+
+.chip[aria-checked='true'] {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.chip:active {
+  background: var(--surface-2);
+}
+
+/* Finger, not mouse (phones, iPads): every chip grows to the full 44px. */
+@media (pointer: coarse) {
+  .chip {
+    min-height: var(--tap);
+  }
+}
+
+@media (hover: hover) {
+  .btn:not(:disabled):not(.btn--primary):hover {
+    background: var(--surface-2);
+  }
+
+  .btn--primary:not(:disabled):hover {
+    filter: brightness(1.08);
+  }
+
+  .chip:hover {
+    border-color: var(--text-2);
+  }
+}
+
+/* Visually hidden but still read by screen readers. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

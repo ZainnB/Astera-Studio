@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "build:single": "tsc -b && vite build --mode single"
+    "build:single": "tsc -b && vite build --mode single",
+    "package": "bash scripts/package.sh"
   },
   "dependencies": {
     "chart.js": "^4.6.1",

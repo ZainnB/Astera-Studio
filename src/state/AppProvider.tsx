@@ -7,6 +7,7 @@ const initialState: AppState = {
   pipelines,
   pinned: [],
   filters: { range: 'last-quarter', region: 'All' },
+  chat: [],
 }
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))

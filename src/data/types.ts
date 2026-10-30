@@ -67,15 +67,45 @@ export interface Pipeline {
 
 export type Region = 'North' | 'South' | 'East' | 'West' | 'Central'
 
+export interface ChartDataset {
+  label: string
+  data: number[]
+  /**
+   * reference: a comparison series such as a target, drawn in grey so it recedes.
+   * variance:  +/- values; bars are colored by sign (above or below zero).
+   */
+  role?: 'reference' | 'variance'
+}
+
 /** A chart, as stored in a chat answer or pinned to the dashboard. */
 export interface ChartSpec {
   id: string
   title: string
-  kind: 'bar' | 'line' | 'doughnut'
+  subtitle?: string
+  /** hbar = horizontal bars (long category names stay readable on a phone). */
+  kind: 'bar' | 'hbar' | 'line'
   labels: string[]
-  datasets: { label: string; data: number[] }[]
-  /** How to print values: $k amounts, percentages or plain counts. */
+  datasets: ChartDataset[]
+  /** How to print values: $k amounts, signed percentages or plain counts. */
   unit: 'usd-k' | 'percent' | 'count'
+  /** True when labels are months. Only time series may be drawn as a line. */
+  timeSeries?: boolean
   /** The pipeline this chart's data comes from. */
   pipelineId: string
+}
+
+export type DateRange = 'last-quarter' | 'last-6-months' | 'last-12-months'
+
+export interface Filters {
+  range: DateRange
+  region: Region | 'All'
+}
+
+export interface ChatMessage {
+  id: string
+  role: 'user' | 'assistant'
+  text: string
+  chart?: ChartSpec
+  /** Tappable follow-up questions shown under the message. */
+  suggestions?: string[]
 }

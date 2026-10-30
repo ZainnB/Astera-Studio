@@ -21,5 +21,17 @@ out of box, or whatever you think best."
 Agreed with AI to collapse on header tap / another step / outside tap, but **not** on scroll
 (layout jump), and to keep the step open while it has unsaved edits.
 
+## 3. Build the rest
+**Prompt:** "all good, next do chunk 4, 5, 6 and 7 all in this go" (chunk 3 hadn't been built, so AI did 3–7).
+
+**Outcome:** dashboard, chat, pipeline list + detail, packaging, README, NOTE draft.
+Decisions AI made during the build that I should be able to defend:
+- Desktop pipeline panel moved **below** the canvas (side panel made the canvas scroll at 1440px)
+- Chat refuses "show as line" for regions/categories (a line implies continuity, which only time has)
+- Trend chart always shows 12 months, even with the "last quarter" filter (a trend needs history)
+- "Tap outside" listens to `click`, not `pointerdown`, so starting a scroll never collapses a step
+- Selected step lives in the URL so dashboard links can open the failed step directly
+
 ## Hand fixes / things I changed
-- (fill in as we go)
+- Light-mode status pill backgrounds darker
+- Repo renamed to Astera_Flow, Pages source set to GitHub Actions
