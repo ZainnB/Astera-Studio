@@ -10,8 +10,8 @@ const links = [
 ]
 
 const LINKEDIN = 'https://www.linkedin.com/in/zain-baig-04790b260/'
-const GITHUB = 'https://github.com/ZainnB/Astera_Flow'
-const LIVE = 'https://zainnb.github.io/Astera_Flow/'
+const GITHUB = 'https://github.com/ZainnB/astera-studio'
+const LIVE = 'https://zainnb.github.io/astera-studio/'
 
 // Three tidy columns: what this is · where to go · who built it, then a
 // bottom bar. Stacks on phones, sits side by side on bigger screens.
