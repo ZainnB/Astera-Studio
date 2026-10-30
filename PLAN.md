@@ -45,8 +45,8 @@ Steps list their `inputs`, so the same data drives both the vertical list and ca
 
 ## Build order: v1
 - [x] 0. Scaffold: Vite + TS, deps, single-file config, tokens, Pages workflow
-- [ ] 1. App shell: routing + 3 nav layouts
-- [ ] 2. Types, mock data, context
+- [x] 1. App shell: routing + 3 nav layouts
+- [x] 2. Types, mock data, context
 - [ ] 3. Dashboard
 - [ ] 4. Chat
 - [ ] 5. Pipeline detail + step expand/panel + light edit

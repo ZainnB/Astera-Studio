@@ -42,6 +42,58 @@ export function DashboardIcon(props: IconProps) {
   )
 }
 
+// --- Status icons (used by StatusBadge). Shape differs per status, so status
+// is readable without color too (color-blind users, greyscale screenshots).
+
+export function CheckIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M5 12.5l4.5 4.5L19 7.5" />
+    </Svg>
+  )
+}
+
+export function CrossIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M6 6l12 12M18 6L6 18" />
+    </Svg>
+  )
+}
+
+export function SpinnerIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M12 3a9 9 0 1 1-9 9" />
+    </Svg>
+  )
+}
+
+export function ClockIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 7v5l3 2" />
+    </Svg>
+  )
+}
+
+export function DashIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M6 12h12" />
+    </Svg>
+  )
+}
+
+export function CircleIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <circle cx="12" cy="12" r="7" />
+    </Svg>
+  )
+}
+
 export function PipelineIcon(props: IconProps) {
   return (
     <Svg {...props}>
