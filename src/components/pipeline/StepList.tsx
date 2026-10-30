@@ -60,7 +60,7 @@ export default function StepList({ pipeline, selectedId, onSelect }: StepListPro
   const steps = pipeline.steps
 
   return (
-    <ol ref={listRef} className="step-list" aria-label="Pipeline steps">
+    <ol ref={listRef} className="step-list stagger" aria-label="Pipeline steps">
       {steps.map((step, i) => {
         const open = step.id === selectedId
         const prev = steps[i - 1]

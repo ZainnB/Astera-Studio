@@ -1,0 +1,20 @@
+.avatar {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  overflow: hidden;
+  border-radius: 50%;
+  /* Initials fallback: two shades of the brand color. */
+  background: linear-gradient(145deg, var(--accent), color-mix(in srgb, var(--accent) 60%, #000));
+  color: #fff;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  /* Thin ring so a photo doesn't bleed into the background. */
+  box-shadow: 0 0 0 2px var(--surface), 0 0 0 3px var(--border-strong);
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* fill the circle without stretching the photo */
+}

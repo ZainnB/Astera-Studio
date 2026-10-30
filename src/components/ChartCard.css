@@ -71,12 +71,17 @@
   border-top: 2px dashed var(--series-ref);
 }
 
-/* The chart fills this box (Chart.js maintainAspectRatio: false). */
+/* The chart fills this box (Chart.js maintainAspectRatio: false).
+   margin-top: auto pushes it to the bottom of the card. Cards in the same
+   grid row are equally tall, so with equal canvas heights their plot areas
+   line up exactly, even when one card has a legend and the other doesn't. */
 .chart-card__canvas {
   position: relative;
   height: 220px;
+  margin-top: auto;
 }
 
+/* Phone only: horizontal bars need less height when stacked alone. */
 .chart-card__canvas--hbar {
   height: 200px;
 }
@@ -86,7 +91,8 @@
     padding: var(--s-5);
   }
 
-  .chart-card__canvas {
+  .chart-card__canvas,
+  .chart-card__canvas--hbar {
     height: 260px;
   }
 }

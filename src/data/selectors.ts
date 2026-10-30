@@ -56,7 +56,9 @@ const pctChange = (now: number, before: number) => (now / before - 1) * 100
 export interface Kpi {
   id: string
   label: string
-  value: string
+  /** Raw number, so the card can animate it; `format` turns it into text. */
+  value: number
+  format: (value: number) => string
   /** Second line, already formatted, e.g. "+5.2% vs previous period". */
   note: string
   /** Drives the arrow icon and color of the note. */
@@ -85,16 +87,17 @@ export function getKpis(filters: Filters): Kpi[] {
   const prevAov = prevRev !== null && prevOrders !== null ? (prevRev * 1000) / prevOrders : null
 
   return [
-    { id: 'revenue', label: 'Revenue', value: formatUsdK(rev), ...compare(rev, prevRev) },
+    { id: 'revenue', label: 'Revenue', value: rev, format: formatUsdK, ...compare(rev, prevRev) },
     {
       id: 'attainment',
       label: 'Vs target',
-      value: formatPercent(pctChange(rev, tgt)),
+      value: pctChange(rev, tgt),
+      format: formatPercent,
       note: `Target ${formatUsdK(tgt)}`,
       trend: rev >= tgt ? 'up' : 'down',
     },
-    { id: 'orders', label: 'Orders', value: formatCount(orders), ...compare(orders, prevOrders) },
-    { id: 'aov', label: 'Avg order value', value: `$${aov.toFixed(0)}`, ...compare(aov, prevAov) },
+    { id: 'orders', label: 'Orders', value: orders, format: formatCount, ...compare(orders, prevOrders) },
+    { id: 'aov', label: 'Avg order value', value: aov, format: (v) => `$${v.toFixed(0)}`, ...compare(aov, prevAov) },
   ]
 }
 
@@ -128,6 +131,7 @@ export function regionChart(filters: Filters): ChartSpec {
   return {
     id: 'dash-region',
     title: `${r}: revenue vs target by month`,
+    subtitle: rangeLabels[filters.range],
     kind: 'bar',
     labels: idx.map((i) => months[i]),
     datasets: [
@@ -140,19 +144,19 @@ export function regionChart(filters: Filters): ChartSpec {
   }
 }
 
-/** Always 12 months: a trend needs history, so the date filter doesn't shorten it. */
+/** Month by month over the selected date range, for the selected region(s). */
 export function trendChart(filters: Filters): ChartSpec {
   const rs = regionsFor(filters)
-  const all = months.map((_, i) => i)
+  const idx = monthsIn(filters.range)
   return {
     id: 'dash-trend',
-    title: 'Monthly revenue, last 12 months',
-    subtitle: filters.region === 'All' ? 'All regions' : filters.region,
+    title: 'Monthly revenue',
+    subtitle: `${rangeLabels[filters.range]} · ${filters.region === 'All' ? 'All regions' : filters.region}`,
     kind: 'line',
-    labels: months,
+    labels: idx.map((i) => months[i]),
     datasets: [
-      { label: 'Revenue', data: all.map((i) => total(revenue, rs, [i])) },
-      { label: 'Target', role: 'reference', data: all.map((i) => total(target, rs, [i])) },
+      { label: 'Revenue', data: idx.map((i) => total(revenue, rs, [i])) },
+      { label: 'Target', role: 'reference', data: idx.map((i) => total(target, rs, [i])) },
     ],
     unit: 'usd-k',
     timeSeries: true,
@@ -166,6 +170,7 @@ export function categoryChart(filters: Filters): ChartSpec {
   return {
     id: 'dash-category',
     title: 'Revenue by category',
+    subtitle: `${rangeLabels[filters.range]} · ${filters.region === 'All' ? 'All regions' : filters.region}`,
     kind: 'hbar',
     labels: categories,
     datasets: [

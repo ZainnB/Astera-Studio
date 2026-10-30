@@ -62,6 +62,9 @@ non-time data) · table view on every chart · selected step kept in URL (`?step
 - [x] Light/dark toggle (Auto/Light/Dark, no flash on load)
 - [x] Draggable bottom sheet
 - [x] Screen transitions
+- [x] Topbar (breadcrumb, theme, account menu) + footer
+- [x] Geist font, brand-shade gradients, staggered entrance, KPI count-up
+- [x] Trend chart follows the date range; aligned plot areas in side-by-side cards
 - [ ] preview.html with iPhone/iPad/desktop frames
 - [ ] Final NOTE with screenshots
 

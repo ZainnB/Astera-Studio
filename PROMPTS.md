@@ -28,7 +28,7 @@ Agreed with AI to collapse on header tap / another step / outside tap, but **not
 Decisions AI made during the build that I should be able to defend:
 - Desktop pipeline panel moved **below** the canvas (side panel made the canvas scroll at 1440px)
 - Chat refuses "show as line" for regions/categories (a line implies continuity, which only time has)
-- Trend chart always shows 12 months, even with the "last quarter" filter (a trend needs history)
+- ~~Trend chart always shows 12 months~~ → **I changed this:** the date range now drives the monthly revenue chart too, so every chart answers the same filter
 - "Tap outside" listens to `click`, not `pointerdown`, so starting a scroll never collapses a step
 - Selected step lives in the URL so dashboard links can open the failed step directly
 
@@ -53,6 +53,22 @@ bottom sheet, smooth transitions between screens."
 - Theme toggle Auto → Light → Dark, saved in localStorage; inline script in index.html prevents a white flash; colors fade during the switch
 - Bottom sheet: drag the handle/header down; >100px or a quick flick dismisses, otherwise springs back; every close slides down
 - Screens fade up on navigation (`key={pathname}`); enter-only so nothing delays the user
+
+## 6. Header, footer, alignment, premium polish
+**Prompt:** "Make the range filter also act on monthly revenue. The two side-by-side graphs (one vertical,
+one horizontal) feel up-and-down: same box size but align them inside. Add a proper header with page name
+and an account icon with the client's picture. Footer with project name/description, navigation, and
+developer columns. Premium look in font, colour gradients and animations."
+
+**Outcome:**
+- Trend chart follows the date range (my decision, overriding the AI's earlier "always 12 months")
+- Chart canvases same height + `margin-top: auto`, so plot areas line up across a row; category chart got a subtitle
+- Topbar: page name / breadcrumb (doubles as the back link), theme toggle, account avatar + menu (native Popover API: Esc and tap-outside for free)
+- Avatar uses `import.meta.glob` so any `src/assets/avatar.jpg|png|webp` is picked up; initials until then
+- Footer: brand + description · navigation · developer; hidden on Chat (composer stays pinned)
+- Geist font bundled (Latin only, 29 KB, OFL licence included), works offline
+- Gradients only in brand shades: page glow, primary buttons, KPI hairline, per-bar chart gradients, line area fill
+- Motion: staggered card entrance, KPI count-up (re-animates on filter change), hover lift on pipeline cards; all respect reduced motion
 
 ## Hand fixes / things I changed
 - Light-mode status pill backgrounds darker

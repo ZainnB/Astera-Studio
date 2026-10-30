@@ -31,13 +31,13 @@ export default function PipelinesScreen() {
   return (
     <>
       <PageHeader title="Pipelines" subtitle={summary} />
-      <ul className="pipelines">
+      <ul className="pipelines stagger">
         {sorted.map((p) => {
           const done = p.steps.filter((s) => s.status === 'succeeded').length
           return (
             <li key={p.id}>
               {/* The whole card is one link: one big tap target. */}
-              <Link to={`/pipelines/${p.id}`} className={`card pipeline-card pipeline-card--${p.status}`}>
+              <Link to={`/pipelines/${p.id}`} className={`card lift pipeline-card pipeline-card--${p.status}`}>
                 <span className="pipeline-card__head">
                   <span className="pipeline-card__name">{p.name}</span>
                   <StatusBadge status={p.status} />

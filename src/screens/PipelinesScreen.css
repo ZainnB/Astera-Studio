@@ -69,8 +69,4 @@
   font-size: var(--fs-xs);
 }
 
-@media (hover: hover) {
-  .pipeline-card:hover {
-    box-shadow: 0 0 0 2px var(--accent-soft), var(--shadow);
-  }
-}
+

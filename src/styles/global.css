@@ -13,7 +13,12 @@ body {
 }
 
 body {
-  background: var(--bg);
+  /* A faint glow of the brand color at the top right, fading into the page
+     background. One hue, very low strength: depth, not decoration. */
+  background:
+    radial-gradient(900px 420px at 85% -140px, color-mix(in srgb, var(--accent) 11%, transparent), transparent 70%),
+    var(--bg);
+  background-repeat: no-repeat;
   color: var(--text);
   font-family: var(--font);
   font-size: var(--fs-md);
@@ -147,7 +152,8 @@ a {
 }
 
 .btn--primary {
-  background: var(--accent);
+  /* Two shades of the brand color, lighter at the top: reads as gently lit. */
+  background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 86%, #fff), var(--accent));
   border-color: var(--accent);
   color: var(--accent-fg);
   /* A faint top highlight gives the button a little depth. */
@@ -219,6 +225,43 @@ a {
   .chip:hover {
     border-color: var(--border-strong);
     background: var(--surface-2);
+  }
+}
+
+/* ---------- Motion ---------- */
+
+/* Children of .stagger rise into place one after another (50ms apart).
+   "backwards" applies the start state during the delay, then lets go, so it
+   never fights hover effects afterwards. */
+.stagger > * {
+  animation: rise 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+}
+
+.stagger > :nth-child(2) { animation-delay: 50ms; }
+.stagger > :nth-child(3) { animation-delay: 100ms; }
+.stagger > :nth-child(4) { animation-delay: 150ms; }
+.stagger > :nth-child(5) { animation-delay: 200ms; }
+.stagger > :nth-child(6) { animation-delay: 250ms; }
+.stagger > :nth-child(7) { animation-delay: 300ms; }
+.stagger > :nth-child(n + 8) { animation-delay: 350ms; }
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+/* Clickable cards float up slightly under a mouse. Touch devices skip it
+   (they have the :active press effect instead). */
+@media (hover: hover) {
+  .lift {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .lift:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
   }
 }
 

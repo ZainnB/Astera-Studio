@@ -5,15 +5,9 @@ const NEXT: Record<ThemePref, ThemePref> = { system: 'light', light: 'dark', dar
 const LABEL: Record<ThemePref, string> = { system: 'Auto', light: 'Light', dark: 'Dark' }
 const ICON = { system: MonitorIcon, light: SunIcon, dark: MoonIcon }
 
-interface ThemeToggleProps {
-  className: string
-  /** Show the word next to the icon (sidebar/rail) or icon only (phone). */
-  showLabel?: boolean
-}
-
 // One button that cycles Auto → Light → Dark. "Auto" follows the device
 // setting. The icon shows the current choice; the aria-label says it in words.
-export default function ThemeToggle({ className, showLabel = false }: ThemeToggleProps) {
+export default function ThemeToggle({ className }: { className: string }) {
   const pref = useThemePref()
   const Icon = ICON[pref]
 
@@ -24,8 +18,7 @@ export default function ThemeToggle({ className, showLabel = false }: ThemeToggl
       aria-label={`Theme: ${LABEL[pref]}. Switch to ${LABEL[NEXT[pref]]}.`}
       title={`Theme: ${LABEL[pref]}`}
     >
-      <Icon className="nav__icon" aria-hidden="true" />
-      {showLabel && <span className="nav__label">{LABEL[pref]}</span>}
+      <Icon aria-hidden="true" />
     </button>
   )
 }

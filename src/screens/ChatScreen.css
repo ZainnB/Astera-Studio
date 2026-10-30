@@ -1,11 +1,13 @@
-/* A centered reading column: long lines are hard to read on wide screens. */
+/* A centered reading column: long lines are hard to read on wide screens.
+   flex: 1 fills the space between topbar and bottom, so the composer starts
+   at the bottom even when the conversation is empty. */
 .chat {
+  flex: 1;
   display: flex;
   flex-direction: column;
+  width: 100%;
   max-width: 780px;
   margin: 0 auto;
-  /* Fill the screen so the composer starts at the bottom even when empty. */
-  min-height: calc(100dvh - 56px - env(safe-area-inset-bottom) - 2 * var(--s-4));
 }
 
 .chat__log {
@@ -24,9 +26,15 @@
 }
 
 .chat__empty-title {
-  font-size: 24px;
+  justify-self: start; /* gradient spans the text, not the whole row */
+  font-size: 26px;
   font-weight: 650;
   letter-spacing: var(--tracking-tight);
+  /* Text filled with a gradient from ink to brand color. */
+  background: linear-gradient(90deg, var(--text) 20%, var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .chat__suggestions {
@@ -141,18 +149,9 @@
 }
 
 @media (min-width: 700px) {
-  .chat {
-    min-height: calc(100dvh - 2 * var(--s-5));
-  }
-
   .chat__composer {
     bottom: 0; /* no tab bar on tablet/desktop */
     padding-bottom: var(--s-4);
   }
 }
 
-@media (min-width: 1200px) {
-  .chat {
-    min-height: calc(100dvh - var(--s-7) - var(--s-6)); /* matches .shell__main padding */
-  }
-}

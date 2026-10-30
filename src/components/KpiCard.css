@@ -1,6 +1,20 @@
 .kpi {
+  position: relative;
+  overflow: hidden;
   padding: var(--s-3) var(--s-4);
   min-width: 0;
+  /* Surface with the faintest brand tint toward the bottom. */
+  background: linear-gradient(180deg, var(--surface) 50%, color-mix(in srgb, var(--accent) 4%, var(--surface)));
+}
+
+/* A hairline of brand color along the top edge, fading out to the right. */
+.kpi::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), transparent 75%);
+  opacity: 0.55;
 }
 
 .kpi__label {

@@ -35,7 +35,7 @@ export default function StepCanvas({ pipeline, selectedId, onSelect }: StepCanva
 
   return (
     <div className="canvas" role="group" aria-label="Pipeline diagram">
-      <div className="canvas__inner" style={{ width, height }}>
+      <div className="canvas__inner stagger" style={{ width, height }}>
         {/* Arrows first, so the boxes are drawn on top of them. */}
         <svg className="canvas__edges" width={width} height={height} aria-hidden="true">
           <defs>

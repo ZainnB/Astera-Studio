@@ -1,0 +1,230 @@
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 8;
+  /* Frosted glass, same recipe as the phone tab bar. */
+  background: color-mix(in srgb, var(--bg) 78%, transparent);
+  backdrop-filter: saturate(180%) blur(16px);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  border-bottom: 1px solid var(--border);
+  /* Below the iPhone status bar / notch when the page runs edge to edge. */
+  padding-top: env(safe-area-inset-top);
+}
+
+.topbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+  height: 56px;
+  padding: 0 var(--s-2) 0 var(--s-4);
+}
+
+.topbar__crumbs {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  min-width: 0;
+  font-size: var(--fs-sm);
+}
+
+.topbar__title,
+.topbar__current {
+  overflow: hidden;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.topbar__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  min-height: var(--tap);
+  margin-left: calc(-1 * var(--s-2));
+  padding: 0 var(--s-2);
+  border-radius: var(--r-md);
+  color: var(--text-2);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.topbar__back svg {
+  width: 18px;
+  height: 18px;
+}
+
+.topbar__back:active {
+  background: var(--surface-2);
+}
+
+.topbar__sep {
+  color: var(--text-3);
+}
+
+/* Phone: the big page title is right below, so the breadcrumb shows only
+   the way back ("‹ Pipelines"). */
+.topbar__sep,
+.topbar__current {
+  display: none;
+}
+
+.topbar__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--s-1);
+}
+
+.topbar__icon-btn {
+  color: var(--text-2);
+}
+
+/* The avatar is 32px, but the button around it is a full 44px tap target. */
+.topbar__avatar-btn {
+  display: grid;
+  place-items: center;
+  width: var(--tap);
+  height: var(--tap);
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: none;
+}
+
+.topbar__avatar-btn:active {
+  transform: scale(0.95);
+}
+
+@media (min-width: 700px) {
+  .topbar__inner {
+    padding: 0 var(--s-4) 0 var(--s-5);
+  }
+
+  .topbar__back svg {
+    display: none; /* tablet+: a normal breadcrumb, no back arrow */
+  }
+
+  .topbar__sep,
+  .topbar__current {
+    display: inline;
+  }
+}
+
+@media (min-width: 1200px) {
+  .topbar__inner {
+    max-width: 1320px;
+    height: 64px;
+    padding: 0 var(--s-6) 0 var(--s-7);
+  }
+}
+
+@media (hover: hover) {
+  .topbar__back:hover {
+    color: var(--text);
+  }
+}
+
+/* ---------- Account menu (native popover, rendered in the top layer) ---------- */
+.account-menu {
+  /* Popovers are centered by default; pin it under the avatar instead. */
+  inset: auto;
+  top: calc(60px + env(safe-area-inset-top));
+  right: var(--s-3);
+  width: min(300px, calc(100vw - 2 * var(--s-3)));
+  margin: 0;
+  padding: var(--s-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--shadow-lg);
+}
+
+.account-menu:popover-open {
+  animation: menu-in 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.98);
+  }
+}
+
+.account-menu__head {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-3);
+}
+
+.account-menu__name {
+  font-weight: 650;
+  letter-spacing: var(--tracking-tight);
+}
+
+.account-menu__role {
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+}
+
+.account-menu__meta {
+  display: grid;
+  gap: var(--s-2);
+  margin: 0 0 var(--s-2);
+  padding: var(--s-3);
+  border-radius: var(--r-md);
+  background: var(--surface-2);
+  font-size: var(--fs-sm);
+}
+
+.account-menu__meta dt {
+  color: var(--text-3);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.account-menu__meta dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.account-menu__items {
+  display: grid;
+}
+
+.account-menu__item {
+  min-height: var(--tap);
+  padding: 0 var(--s-3);
+  border: none;
+  border-radius: var(--r-md);
+  background: none;
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  text-align: left;
+}
+
+.account-menu__item:active {
+  background: var(--surface-2);
+}
+
+.account-menu__item--quiet {
+  color: var(--text-2);
+  border-top: 1px solid var(--border);
+  border-radius: 0 0 var(--r-md) var(--r-md);
+}
+
+@media (min-width: 1200px) {
+  .account-menu {
+    top: 68px;
+    right: var(--s-5);
+  }
+}
+
+@media (hover: hover) {
+  .account-menu__item:hover {
+    background: var(--surface-2);
+  }
+}

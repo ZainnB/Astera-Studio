@@ -1,36 +1,35 @@
-/* Phone: content fills the screen; the nav floats at the bottom. */
+/* Phone: one column; the nav floats at the bottom as a tab bar. */
 .shell {
   min-height: 100dvh; /* dvh = "dynamic" height, accounts for Safari's moving address bar */
 }
 
-.shell__main {
-  position: relative; /* anchors the phone theme button */
-  padding: var(--s-4);
-  /* Below the iPhone status bar / notch when the page runs edge to edge. */
-  padding-top: calc(var(--s-4) + env(safe-area-inset-top));
-  /* Keep the last bit of content from hiding behind the bottom tab bar
-     (56px tabs + home-indicator inset + normal spacing). */
-  padding-bottom: calc(56px + env(safe-area-inset-bottom) + var(--s-4));
+/* topbar / main / footer stacked; main grows to fill the space between. */
+.shell__body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
   min-width: 0; /* lets wide children (charts, tables) shrink instead of overflowing */
+  /* Keep the bottom of the page clear of the fixed tab bar
+     (56px tabs + iPhone home-indicator inset). */
+  padding-bottom: calc(56px + env(safe-area-inset-bottom));
 }
 
-/* Phone theme button, top-right; titles leave room for it. */
-.shell__theme {
-  position: absolute;
-  top: calc(var(--s-2) + env(safe-area-inset-top));
-  right: var(--s-2);
-  z-index: 1;
-  color: var(--text-2);
-}
-
-.shell__main .page-header {
-  padding-right: var(--tap);
+.shell__main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  padding: var(--s-4);
 }
 
 /* Each screen fades up into place. Enter-only on purpose: an exit animation
    would make the user wait before the next screen appears. */
 .shell__page {
-  animation: page-in 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  animation: page-in 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 @keyframes page-in {
@@ -40,37 +39,32 @@
   }
 }
 
-/* Tablet: two columns, rail | content. */
+/* Tablet: two columns, rail | everything else. No tab bar to clear. */
 @media (min-width: 700px) {
   .shell {
     display: grid;
     grid-template-columns: 88px 1fr;
   }
 
+  .shell__body {
+    padding-bottom: 0;
+  }
+
   .shell__main {
     padding: var(--s-5);
   }
-
-  .shell__theme {
-    display: none;
-  }
-
-  .shell__main .page-header {
-    padding-right: 0;
-  }
 }
 
-/* Desktop: wider sidebar, more breathing room. */
+/* Desktop: wider sidebar, generous whitespace, and a max width so lines and
+   charts don't stretch endlessly on very wide monitors. Topbar and footer
+   use the same max width, so all three left edges line up. */
 @media (min-width: 1200px) {
   .shell {
     grid-template-columns: 232px 1fr;
   }
 
-  /* Generous whitespace, and a max width so lines and charts don't stretch
-     endlessly on very wide monitors. */
   .shell__main {
-    width: 100%;
     max-width: 1320px;
-    padding: var(--s-7) var(--s-7) var(--s-6);
+    padding: var(--s-6) var(--s-7) var(--s-7);
   }
 }

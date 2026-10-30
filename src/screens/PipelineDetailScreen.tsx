@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
 import { Link, useParams, useSearchParams } from 'react-router'
-import { BackIcon, RefreshIcon } from '../components/Icons'
+import { RefreshIcon } from '../components/Icons'
 import PageHeader from '../components/PageHeader'
 import StatusBadge from '../components/StatusBadge'
 import StepCanvas from '../components/pipeline/StepCanvas'
@@ -67,11 +67,6 @@ export default function PipelineDetailScreen() {
 
   return (
     <>
-      <Link to="/pipelines" className="btn btn--ghost detail__back">
-        <BackIcon />
-        Pipelines
-      </Link>
-
       <PageHeader
         title={pipeline.name}
         subtitle={pipeline.description}

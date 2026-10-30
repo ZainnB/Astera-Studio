@@ -38,7 +38,9 @@ npm run build:single   # dist-single/index.html: one self-contained file
 npm run package        # release/ZainBaig_FAST_2026.zip
 ```
 
-Stack: React 19, TypeScript, Vite, React Router (hash routing so it works from `file://`), Chart.js. Styling is plain CSS with design tokens (`src/styles/tokens.css`) and light/dark mode.
+**Client photo:** drop an image named `avatar.jpg` (or `.png` / `.webp`) into `src/assets/` and rebuild; the header picks it up automatically. Until then it shows initials.
+
+Stack: React 19, TypeScript, Vite, React Router (hash routing so it works from `file://`), Chart.js. Styling is plain CSS with design tokens (`src/styles/tokens.css`), light/dark/auto themes, and the Geist font (bundled, SIL OFL).
 
 ```
 src/

@@ -49,13 +49,13 @@ export default function DashboardScreen() {
       <div className="dash">
         <PipelineStatusStrip pipelineId="sales" />
 
-        <section className="dash__kpis" aria-label="Key figures">
+        <section className="dash__kpis stagger" aria-label="Key figures">
           {getKpis(filters).map((kpi) => (
             <KpiCard key={kpi.id} kpi={kpi} />
           ))}
         </section>
 
-        <div className="dash__grid">
+        <div className="dash__grid stagger">
           <ChartCard
             className="dash__region"
             chart={regionChart(filters)}

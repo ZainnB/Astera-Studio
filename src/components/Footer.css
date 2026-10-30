@@ -1,0 +1,117 @@
+.footer {
+  margin-top: var(--s-6);
+  border-top: 1px solid var(--border);
+  /* A very faint wash of the brand hue, rising from the bottom edge. */
+  background: linear-gradient(to top, color-mix(in srgb, var(--accent) 5%, var(--bg)), var(--bg));
+}
+
+/* Phone: brand on top, then the two link columns side by side. */
+.footer__inner {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s-5) var(--s-4);
+  padding: var(--s-6) var(--s-4) var(--s-5);
+}
+
+.footer__brand {
+  grid-column: 1 / -1;
+}
+
+.footer__name {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  font-weight: 650;
+  letter-spacing: var(--tracking-tight);
+}
+
+.footer__logo {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 7px;
+  background: linear-gradient(145deg, var(--accent), color-mix(in srgb, var(--accent) 65%, #000));
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.footer__desc {
+  max-width: 46ch;
+  margin-top: var(--s-2);
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+}
+
+.footer__fine {
+  margin-top: var(--s-3);
+  color: var(--text-3);
+  font-size: var(--fs-xs);
+}
+
+.footer__heading {
+  margin-bottom: var(--s-2);
+  color: var(--text-3);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.footer__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--fs-sm);
+}
+
+/* Links get a full 44px row on touch screens. */
+.footer__list a,
+.footer__plain {
+  display: flex;
+  align-items: center;
+  min-height: 36px;
+  color: var(--text-2);
+  text-decoration: none;
+}
+
+.footer__plain {
+  color: var(--text);
+}
+
+.footer__list a:active {
+  color: var(--accent);
+}
+
+@media (pointer: coarse) {
+  .footer__list a {
+    min-height: var(--tap);
+  }
+}
+
+@media (hover: hover) {
+  .footer__list a:hover {
+    color: var(--accent);
+  }
+}
+
+/* Tablet+: all three columns side by side, brand column wider. */
+@media (min-width: 700px) {
+  .footer__inner {
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: var(--s-6);
+    padding: var(--s-6) var(--s-5);
+  }
+
+  .footer__brand {
+    grid-column: auto;
+  }
+}
+
+@media (min-width: 1200px) {
+  .footer__inner {
+    max-width: 1320px;
+    padding: var(--s-7) var(--s-7) var(--s-6);
+  }
+}

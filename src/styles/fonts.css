@@ -1,0 +1,16 @@
+/*
+ * Geist (by Vercel, SIL Open Font License, see src/assets/fonts/Geist-OFL-LICENSE.txt).
+ * One variable file holds every weight from 100 to 900. Only the Latin subset
+ * is bundled (29 KB): it covers English text, digits, €, ™, arrows and the
+ * minus sign. Any other character falls back to the system font automatically.
+ *
+ * It's bundled with the app (not loaded from Google Fonts), so it also works
+ * in the offline single-file build.
+ */
+@font-face {
+  font-family: 'Geist';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap; /* show text in the fallback font immediately, swap when loaded */
+  src: url('../assets/fonts/geist-latin-wght-normal.woff2') format('woff2');
+}
