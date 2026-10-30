@@ -8,7 +8,7 @@ import { viteSingleFile } from 'vite-plugin-singlefile'
 //                                         so it opens by double-click (file://)
 export default defineConfig(({ mode }) => ({
   // Relative asset paths, so the app works under any sub-path
-  // (e.g. username.github.io/Ask_Astera/) and from file://.
+  // (e.g. zainnb.github.io/Astera_Flow/) and from file://.
   base: './',
   plugins: mode === 'single' ? [react(), viteSingleFile()] : [react()],
   build: {

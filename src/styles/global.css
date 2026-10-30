@@ -47,6 +47,16 @@ button {
   cursor: pointer;
 }
 
+a {
+  color: var(--accent);
+}
+
+/* Secondary text (hints, timestamps, captions). */
+.muted {
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+}
+
 /* Keyboard focus ring. :focus-visible only shows for keyboard, not for taps. */
 :focus-visible {
   outline: 2px solid var(--accent);

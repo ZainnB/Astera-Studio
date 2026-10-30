@@ -22,18 +22,18 @@
   /* Brand accent: used for primary actions and selection, never for status */
   --accent: #2f5bea;
   --accent-fg: #ffffff;
-  --accent-soft: #e8eeff;
+  --accent-soft: #dde6ff;
 
   /* Pipeline status: each has a strong color (icon/text) and a soft one (pill bg).
      Running is amber, not blue, so it never gets confused with the accent. */
   --ok: #15803d;
-  --ok-soft: #e6f4ea;
+  --ok-soft: #d4ecdc;
   --fail: #c62828;
-  --fail-soft: #fdecec;
+  --fail-soft: #fadada;
   --run: #b45309;
-  --run-soft: #fdf3e2;
+  --run-soft: #fbe7c6;
   --sched: #5b6372;
-  --sched-soft: #eef0f3;
+  --sched-soft: #e2e5ea;
 
   /* Spacing: 4px base scale */
   --s-1: 4px;

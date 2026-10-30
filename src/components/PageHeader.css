@@ -1,0 +1,37 @@
+/* Phone: title and actions stack. */
+.page-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  margin-bottom: var(--s-5);
+}
+
+.page-header__title {
+  font-size: var(--fs-lg);
+  font-weight: 650;
+  line-height: 1.25;
+}
+
+.page-header__subtitle {
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+}
+
+.page-header__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+
+/* Tablet+: title left, actions right. */
+@media (min-width: 700px) {
+  .page-header {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+  .page-header__title {
+    font-size: var(--fs-xl);
+  }
+}

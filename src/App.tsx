@@ -1,27 +1,31 @@
-// Temporary screen for chunk 0: proves the build, tokens and dark mode work.
-// Replaced by the real app shell + router in chunk 1.
-const statuses = [
-  { label: 'Succeeded', color: 'var(--ok)', bg: 'var(--ok-soft)' },
-  { label: 'Failed', color: 'var(--fail)', bg: 'var(--fail-soft)' },
-  { label: 'Running', color: 'var(--run)', bg: 'var(--run-soft)' },
-  { label: 'Scheduled', color: 'var(--sched)', bg: 'var(--sched-soft)' },
-]
+import { HashRouter, Navigate, Route, Routes } from 'react-router'
+import AppShell from './components/AppShell'
+import ChatScreen from './screens/ChatScreen'
+import DashboardScreen from './screens/DashboardScreen'
+import PipelineDetailScreen from './screens/PipelineDetailScreen'
+import PipelinesScreen from './screens/PipelinesScreen'
 
+// HashRouter keeps the route after a "#" (…/index.html#/dashboard).
+// The browser never sends the hash to a server, so:
+//   - file:// (the zip build) works: there's no server at all
+//   - GitHub Pages works: it can't be configured to send every URL to index.html,
+//     but with a hash it only ever serves index.html anyway
 export default function App() {
   return (
-    <main style={{ padding: 'var(--s-5)', display: 'grid', gap: 'var(--s-4)' }}>
-      <h1 style={{ fontSize: 'var(--fs-xl)' }}>Astera Studio</h1>
-      <p style={{ color: 'var(--text-2)' }}>Scaffold OK. Toggle your OS dark mode to check the tokens.</p>
-      <div style={{ display: 'flex', gap: 'var(--s-2)', flexWrap: 'wrap' }}>
-        {statuses.map((s) => (
-          <span
-            key={s.label}
-            style={{ color: s.color, background: s.bg, padding: '4px 10px', borderRadius: 999, fontSize: 'var(--fs-sm)' }}
-          >
-            ● {s.label}
-          </span>
-        ))}
-      </div>
-    </main>
+    <HashRouter>
+      <Routes>
+        {/* Layout route: AppShell wraps every screen and renders it in <Outlet />. */}
+        <Route element={<AppShell />}>
+          {/* Studio is chat-first, so the app opens on Chat. */}
+          <Route index element={<Navigate to="/chat" replace />} />
+          <Route path="chat" element={<ChatScreen />} />
+          <Route path="dashboard" element={<DashboardScreen />} />
+          <Route path="pipelines" element={<PipelinesScreen />} />
+          <Route path="pipelines/:pipelineId" element={<PipelineDetailScreen />} />
+          {/* Unknown URL → back to start instead of a blank page. */}
+          <Route path="*" element={<Navigate to="/chat" replace />} />
+        </Route>
+      </Routes>
+    </HashRouter>
   )
 }
