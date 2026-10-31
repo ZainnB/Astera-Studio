@@ -2,50 +2,47 @@
 
 **Zain Baig · FAST · Batch 2026** · Live: https://zainnb.github.io/astera-studio/
 
-## Main design ideas
+## 1. My main design ideas, and why
 
-**1. Trust before numbers.** The dashboard opens with a freshness strip: which pipeline feeds it, its status, and how old the data is ("Last refresh failed 2 hours ago. Showing data from yesterday."). Every chart's footer repeats this and links to its pipeline, and the fix (*Re-run*, *View pipeline*) sits right beside the warning.
+**Show if the data can be trusted, before showing the data.** A chart is only as good as the pipeline behind it. So the dashboard starts with a small strip: which pipeline feeds it, its status, and how old the data is. If it failed, *Re-run* and *View pipeline* are right there. Every chart also says where its data comes from, and tapping that takes you to the pipeline.
 
-**2. Restructure, don't shrink.** The tab bar on iPhone becomes an icon rail on iPad and a sidebar on desktop. On a phone the dashboard is one column in priority order (status, KPIs 2×2, then the chart that answers "who missed target?"), with filters in a draggable bottom sheet.
+**Change the layout per screen, don't just shrink it.** On a phone the menu becomes a bottom tab bar where your thumb is. The dashboard turns into one column in order of importance: status, then the KPIs as a 2×2 grid, then the chart that answers "who missed target?". The filters slide up from the bottom. iPad gets an icon rail, and desktop gets a sidebar and a wider grid.
 
-**3. Pipeline detail: a list for thumbs, a diagram for screens.** A zoomable canvas is the wrong tool for a thumb, so on iPhone the pipeline is a **vertical "subway line"** of full-width step cards.
-- **Tap a step to expand it in place.** It shows the error, row counts, settings and a data preview, and the neighbouring steps stay in view.
-- **The line is drawn only where data flows.** A gap marks a new source, and a join reads *"Combines A + B"*, so branching survives in one column.
-- **One step is open at a time.** It closes on a second tap, another step, or a tap outside, but **never on scroll**, since that makes the page jump. It also stays open while edits are unsaved.
-- **Editing is explicit** (*Edit → Save → Re-run*), so nothing changes by accident. The demo fix, raising a database timeout, is a realistic light edit from a phone.
+**The pipeline screen (the hardest part).** A drag-and-zoom canvas works with a mouse, not with a thumb. So on a phone the pipeline is a **vertical list of steps joined by a line, like a subway map**:
+- Each step is a full-width card with its name, status and row count, so it's easy to read and to tap.
+- Tap a step and it **opens in place** to show the error, the settings and a data preview. The steps around it stay visible, so you don't lose your place.
+- The line only joins steps where data really flows. A gap means a new source starts, and a join says *"Combines A + B"*. So you still see the pipeline's shape in one column.
+- One step opens at a time. It closes on a second tap, on another step, or on a tap outside, but not on scroll (the page would jump) and not with unsaved changes.
+- Editing is a clear *Edit → Save → Re-run*, so nothing changes by accident. In the demo you fix a timed-out step by raising its timeout and re-running it from your phone.
 
-On iPad and desktop the same data draws an auto-laid-out diagram. The selected step lives in the URL, so the dashboard links straight to the failed step and rotating an iPad keeps your place.
+On iPad and desktop there's room for a real diagram. It draws itself from the pipeline data, and tapping a step shows its details underneath.
 
-**4. Actions where the question comes up.** All five examples from the brief are included:
-- re-run a failed pipeline
-- change the date or region filter
-- ask the chat to change a chart (it won't draw regions as a line, since a line implies a sequence)
-- view the pipeline behind a chart
-- drill down by tapping a region's bar
+## 2. An idea I tried and dropped
 
-**5. Calm, touch-first.** One indigo hue in shades; status colors only for status, always with an icon and a word. Targets are at least 44px, nothing depends on hover, tooltips open on tap, and every chart has a table view.
+**"Previous / next" on the phone.** My first idea was one step per screen, with *Previous* / *Next* buttons and dots on top, like flipping through photos. Each step gets the whole screen, but you can never see the whole pipeline. To find where it broke, you'd tap through step after step. The subway line shows every step and its status at once, and the full details are still one tap away.
 
-## An idea I tried and dropped
+**Details beside the diagram on desktop.** I first put the step details in a panel to the right of the diagram, like most desktop tools. But pipelines flow left to right, so the diagram is wide. With the sidebar and the panel both taking space, a five-step pipeline didn't fit, even at 1440px, and you had to scroll sideways. Moving the details **below** the diagram keeps the whole flow visible and gives the details more room.
 
-**A details panel docked beside the diagram on desktop,** as in most desktop pipeline tools. With the sidebar plus a 360px panel, a five-step pipeline no longer fit at 1440px, so the diagram scrolled sideways on the largest screen. Pipelines flow left to right, which makes the diagram wide and short, so the panel moved below it. On the phone I also dropped a pinch-zoom canvas (tiny targets) and a bottom sheet for step details (it hides the neighbouring steps).
+## 3. AI tools, key prompts, and what I changed by hand
 
-## AI tools
+I used **Claude Code (Claude Opus 5.5)** in VS Code. We built it in small parts, and I went through each one before moving on, because I wanted to understand every decision, not just get code.
 
-I used **Claude Code (Claude Opus 5.5)** in VS Code. We built it in small chunks, and I reviewed each before continuing. Key prompts, lightly edited:
+Key prompts (lightly cleaned up):
+1. *"Let's plan first and clear out all the confusion. Ask me questions. I want to understand every decision."* This gave a step-by-step plan. It also caught that a normal React build shows a blank page when opened from a zip, so the zip has one self-contained `index.html`.
+2. *"If the user taps a step it should open to show details, then close on another tap or outside, but not while they're editing."* This replaced the planned pop-up sheet with the step list you see now.
+3. *"Make it premium and minimal: shades of one colour apart from the statuses."* This is why everything is indigo, and green, red and amber only ever mean a status.
 
-1. *"Plan first and clear out all the confusion. Ask me questions; I want to understand every decision."* This set the stack and a phased plan. It also caught that a normal Vite build shows a blank page when opened from a zip, which is why the zip has one self-contained file.
-2. *"If the user taps a step, expand it to show details, then shrink it back on another tap or a tap outside, but not while they're editing."* This replaced the planned bottom sheet and set the rules above.
-3. *"Make it premium and minimal: shades of one colour, apart from statuses."* This produced the one-hue color system.
-
-**What I changed or fixed myself:**
-- **Found by testing in Chrome DevTools (375, 768, 1024, 1440px)**, then had fixed:
-  - row counts overflowing the diagram boxes and hiding step names
-  - a region dropdown that didn't match the design
-  - side-by-side charts that didn't line up
+**What I found, changed or fixed myself:**
+- **Testing in Chrome at 375, 768, 1024 and 1440px, I found and got fixed:**
+  - numbers spilling out of the diagram boxes
+  - a dropdown that didn't match the design
+  - side-by-side charts not lining up
+  - *Edit* closing the step on a phone
+  - a misplaced dropdown arrow
   - a footer that was too heavy
-- **My decisions:**
-  - inline expansion
-  - making the date filter drive the trend chart (overriding an "always 12 months" default)
-  - stronger status colors
+- **My calls:**
+  - steps opening in place instead of in a sheet
+  - the date filter also controlling the monthly chart
+  - stronger status colours
   - adding the header and footer
-- **By hand:** the account details and photo, repo setup, GitHub Pages deployment.
+- **By hand:** the account details and photo, the GitHub repo and renames, and the GitHub Pages deployment.
