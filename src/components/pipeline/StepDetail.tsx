@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import type { Pipeline, Step } from '../../data/types'
 import { formatCount } from '../../lib/format'
 import { useApp } from '../../state/AppContext'
-import { AlertIcon, RefreshIcon } from '../Icons'
+import { AlertIcon, ChevronDownIcon, RefreshIcon } from '../Icons'
 import './StepDetail.css'
 
 interface StepDetailProps {
@@ -143,11 +143,16 @@ export default function StepDetail({ pipeline, step, onSelectStep, onDirtyChange
                 <dd>
                   {editing && f.editable ? (
                     f.options ? (
-                      <select aria-label={f.label} value={draft[f.key]} onChange={(e) => setDraft({ ...draft, [f.key]: e.target.value })}>
-                        {f.options.map((o) => (
-                          <option key={o}>{o}</option>
-                        ))}
-                      </select>
+                      // Native arrow hidden (it sits differently in every browser);
+                      // our own chevron is centred inside the box instead.
+                      <span className="step-detail__select">
+                        <select aria-label={f.label} value={draft[f.key]} onChange={(e) => setDraft({ ...draft, [f.key]: e.target.value })}>
+                          {f.options.map((o) => (
+                            <option key={o}>{o}</option>
+                          ))}
+                        </select>
+                        <ChevronDownIcon aria-hidden="true" />
+                      </span>
                     ) : (
                       <input aria-label={f.label} value={draft[f.key]} onChange={(e) => setDraft({ ...draft, [f.key]: e.target.value })} />
                     )

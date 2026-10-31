@@ -40,10 +40,17 @@ export default function StepList({ pipeline, selectedId, onSelect }: StepListPro
 
   // "Tap outside closes". We listen for `click`, not `pointerdown`: a click
   // only fires for a real tap, never at the start of a scroll gesture.
+  //
+  // composedPath() is the list of elements the tap went through, recorded at
+  // the moment of the tap. We can't use `list.contains(e.target)`: tapping
+  // "Edit" or "Save" makes React swap that button out before this listener
+  // runs, and a removed button is no longer "inside" the list, so the step
+  // would close itself.
   useEffect(() => {
     if (!selectedId) return
     function onClick(e: MouseEvent) {
-      if (!listRef.current?.contains(e.target as Node)) request(null)
+      const list = listRef.current
+      if (list && !e.composedPath().includes(list)) request(null)
     }
     document.addEventListener('click', onClick)
     return () => document.removeEventListener('click', onClick)

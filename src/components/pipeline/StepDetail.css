@@ -115,12 +115,42 @@
 .step-detail__field input,
 .step-detail__field select {
   width: 100%;
-  min-height: 40px;
-  padding: 0 var(--s-2);
-  border: 1px solid var(--accent);
-  border-radius: var(--r-sm);
+  min-height: var(--tap);
+  padding: 0 var(--s-3);
+  border: 1px solid var(--accent-line);
+  border-radius: var(--r-md);
   background: var(--surface);
+  color: var(--text);
   font-size: var(--fs-md); /* 16px+ stops iOS Safari zooming in on focus */
+}
+
+.step-detail__field input:focus-visible,
+.step-detail__field select:focus-visible {
+  border-color: var(--accent);
+  outline-offset: 0;
+}
+
+/* Select with our own chevron: the wrapper positions it, the select leaves room. */
+.step-detail__select {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.step-detail__select select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 40px;
+  cursor: pointer;
+}
+
+.step-detail__select svg {
+  position: absolute;
+  right: var(--s-3);
+  width: 18px;
+  height: 18px;
+  color: var(--accent);
+  pointer-events: none; /* taps go through to the select underneath */
 }
 
 .step-detail__edit-bar,
