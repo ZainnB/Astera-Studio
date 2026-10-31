@@ -4,7 +4,7 @@ A clickable HTML mockup of **Astera Studio** for iPhone, iPad and desktop. It co
 
 **Zain Baig · FAST · Batch 2026**
 
-- **Live:** https://zainnb.github.io/astera-studio/
+- **Live:** https://zainnb.github.io/Astera-Studio/#/dashboard
 - **Offline:** open `index.html` in this folder. It's one self-contained file: no install, no internet needed.
 - **Source:** https://github.com/ZainnB/astera-studio (also in `source/`)
 - **Design note:** `NOTE.md`
